@@ -1,3 +1,6 @@
+.main2{
+  margin-top:30px;
+}
 .App {
   text-align: center;
 }
@@ -30,4 +33,96 @@
   to {
     transform: rotate(360deg);
   }
+}
+.main-area{
+  display:grid;
+  grid-template-columns: 28vw 71.3vw ;
+}
+.sidenav{
+background-color:black;
+min-height:52vw;
+height:100%;
+}
+.sidenav a{
+  padding: 30px 0 0 0;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  height:50px;
+  display: block;
+  outline:none;
+}
+.sidenav a:hover{
+  padding: 30px 0 0 0;
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  height:50px;
+  display: block;
+  outline:none;
+}
+.someHeader{
+  display:flex;
+  color:white;
+  justify-content:center;
+  background-color:#147fd1;
+  height:5vw;
+  font-weight:bolder;
+  align-items:center;
+  font-size:30px;
+}
+.someHeader span{
+  width:400px;
+  text-align:center;
+}
+.choiceSelection{
+  display:flex;
+  flex-direction:column;
+}
+.choiceSelection div{
+  height:20vw;;
+}
+.choiceSelection div button{
+  color:white;
+  font-weight:800;
+  padding:10px;
+  background-color:#147fd1;
+  outline:none;
+  transition-duration:200ms;
+}
+.choiceSelection div button:active{
+  /* color:black;
+  font-weight:800;
+  padding:10px;
+  background-color:#147fd1; */
+
+}
+.choiceSelection div button:hover{
+   font-weight:800;
+  padding:10px;
+  color:#147fd1;
+  background-color:white;
+  outline: none;
+  /*border:1px solid #147fd1; */
+}
+.BrowseFile{
+  display:flex;
+  justify-content: center;
+}
+.input-block
+{
+  display:flex;
+  justify-content:space-between;
+}
+.input-block input
+{
+  width:70%;
+}
+.input-block label
+{
+align-self: center;
+}
+.input-block select
+{
+  width:70%;
 }
