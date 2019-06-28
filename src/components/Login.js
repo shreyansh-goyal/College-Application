@@ -10,7 +10,7 @@ export default class Login extends Component {
 
   login = () => {
     console.log(this.state.password);
-    console.log(this.state.emailId);
+    console.log(this.state.teacherId);
   };
 
   render() {
