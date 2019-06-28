@@ -4,7 +4,8 @@ import axios from "axios";
 export default class Signup extends Component {
   constructor(props) {
     super(props);
-    this.element = React.createRef();
+    this.state = {};
+    //this.element = React.createRef();
   }
 
   signup = () => {
