@@ -117,7 +117,7 @@ class AddStudents extends Component{
                     <input type="text" ref="Mname"  class="form-control" onChange={()=>{this.setState(()=>{this.state.studentDetails.motherName=this.refs.Mname.value;return this.state})}} placeholder={this.state.studentDetails?this.state.studentDetails.motherName:"mother's name"}/>
                 </div>
                 <div class="form-group input-block">
-                    <button onClick={this.updateStudent}>Submit Student</button>
+                    <button className="btn btn-info" onClick={this.updateStudent}>Submit Student</button>
                 </div>
             </div>
             
