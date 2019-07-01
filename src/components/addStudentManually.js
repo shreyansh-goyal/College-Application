@@ -4,15 +4,33 @@ import axios from "axios";
 class AddStudents extends Component {
   constructor(props) {
     super(props);
-    this.element = React.createRef();
+    this.state = {
+      enrollmentNo: "",
+      year: "",
+      section: "",
+      group: "",
+      studentName: "",
+      fatherName: "",
+      motherName: "",
+      phoneNo: "",
+      fatherPhoneNo: "",
+      emailId: "",
+      fatherEmailId: ""
+    };
+    //this.element = React.createRef();
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.ref]: e.target.value });
   }
 
   submitDetails = () => {
     axios
       .post("https://bpitconnect.herokuapp.com/students", {
-        rollNo: 0,
+        rollNo: this.state.rollNo,
         enrollmentNo: this.state.enrollmentNo,
-        year: 0,
+        year: this.state.year,
         section: this.state.section,
         group: this.state.group,
         studentName: this.state.studentName,
@@ -38,22 +56,14 @@ class AddStudents extends Component {
           <input
             type="text"
             ref="studentName"
-            onChange={() => {
-              this.setState({ studentName: this.refs.studentName.value });
-            }}
+            onChange={this.onChange}
             class="form-control"
             placeholder="Enter Names"
           />
         </div>
         <div class="form-group input-block">
           <label>Branch</label>
-          <select
-            ref="branch"
-            onChange={() => {
-              this.setState({ branch: this.refs.branch.value });
-            }}
-            class="form-control"
-          >
+          <select ref="branch" onChange={this.onChange} class="form-control">
             <option>choose one of the following value</option>
             <option>CSE</option>
             <option>IT</option>
@@ -65,13 +75,7 @@ class AddStudents extends Component {
         </div>
         <div class="form-group input-block">
           <label>Year</label>
-          <select
-            ref="year"
-            onChange={() => {
-              this.setState({ year: parseInt(this.refs.year.value) });
-            }}
-            class="form-control"
-          >
+          <select ref="year" onChange={this.onChange} class="form-control">
             <option>choose one of the following value</option>
             <option value={1}>1st</option>
             <option value={2}>2nd</option>
@@ -84,9 +88,7 @@ class AddStudents extends Component {
           <input
             type="text"
             ref="section"
-            onChange={() => {
-              this.setState({ section: this.refs.section.value });
-            }}
+            onChange={this.onChange}
             class="form-control"
             placeholder="Enter Section"
           />
@@ -96,9 +98,7 @@ class AddStudents extends Component {
           <input
             type="text"
             ref="rollNo"
-            onChange={() => {
-              this.setState({ rollNo: parseInt(this.refs.rollNo.value) });
-            }}
+            onChange={this.onChange}
             class="form-control"
             placeholder="Enter Roll no"
           />
@@ -108,22 +108,14 @@ class AddStudents extends Component {
           <input
             type="text"
             ref="enrollmentNo"
-            onChange={() => {
-              this.setState({ enrollmentNo: this.refs.enrollmentNo.value });
-            }}
+            onChange={this.onChange}
             class="form-control"
             placeholder="Enter Enrollment no"
           />
         </div>
         <div class="form-group input-block">
           <label>Group</label>
-          <select
-            ref="group"
-            onChange={() => {
-              this.setState({ group: this.refs.group.value });
-            }}
-            class="form-control"
-          >
+          <select ref="group" onChange={this.onChange} class="form-control">
             <option>choose one of the following value</option>
             <option>G1</option>
             <option>G2</option>
@@ -134,9 +126,7 @@ class AddStudents extends Component {
           <input
             type="text"
             ref="phoneNo"
-            onChange={() => {
-              this.setState({ phoneNo: this.refs.phoneNo.value });
-            }}
+            onChange={this.onChange}
             class="form-control"
             placeholder="Enter Phone No"
           />
@@ -146,9 +136,7 @@ class AddStudents extends Component {
           <input
             type="text"
             ref="emailId"
-            onChange={() => {
-              this.setState({ emailId: this.refs.emailId.value });
-            }}
+            onChange={this.onChange}
             class="form-control"
             placeholder="Enter Email Id"
           />
@@ -158,9 +146,7 @@ class AddStudents extends Component {
           <input
             type="text"
             ref="fatherName"
-            onChange={() => {
-              this.setState({ fatherName: this.refs.fatherName.value });
-            }}
+            onChange={this.onChange}
             class="form-control"
             placeholder="Enter Father's Name"
           />
@@ -170,9 +156,7 @@ class AddStudents extends Component {
           <input
             type="text"
             ref="fatherPhoneNo"
-            onChange={() => {
-              this.setState({ fatherPhoneNo: this.refs.fatherPhoneNo.value });
-            }}
+            onChange={this.onChange}
             class="form-control"
             placeholder="Enter Father's Phone No"
           />
@@ -182,9 +166,7 @@ class AddStudents extends Component {
           <input
             type="text"
             ref="fatherEmailId"
-            onChange={() => {
-              this.setState({ fatherEmailId: this.refs.fatherEmailId.value });
-            }}
+            onChange={this.onChange}
             class="form-control"
             placeholder="Enter father's Email Id"
           />
@@ -194,9 +176,7 @@ class AddStudents extends Component {
           <input
             type="text"
             ref="motherName"
-            onChange={() => {
-              this.setState({ Mname: this.refs.motherName.value });
-            }}
+            onChange={this.onChange}
             class="form-control"
             placeholder="Enter Mother's Name"
           />

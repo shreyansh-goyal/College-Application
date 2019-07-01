@@ -4,12 +4,13 @@ import axios from "axios";
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.element = React.createRef();
+    this.state = {};
+    //this.element = React.createRef();
   }
 
   login = () => {
     console.log(this.state.password);
-    console.log(this.state.emailId);
+    console.log(this.state.teacherId);
   };
 
   render() {
