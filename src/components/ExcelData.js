@@ -7,6 +7,10 @@ class ExcelComponent extends React.Component {
     name: "shreyansh",
     attendenceArray: []
   };
+  constructor(props)
+  {
+    super(props);
+  }
   uploadData = () => {
     console.log(this.state.attendenceArray);
   };
@@ -31,6 +35,11 @@ class ExcelComponent extends React.Component {
       this.setState({
         attendenceArray: excelRows
       });
+      console.log(this.props.work)
+      if(this.props.work=="uploadAttendance")
+      {
+        this.props.action(this.state.attendenceArray);
+      }
     };
 
     reader.readAsBinaryString(event.target.files[0]);
@@ -51,6 +60,7 @@ class ExcelComponent extends React.Component {
             <table className="table table-striped table-dark">
               <thead>
                 <tr>
+                  {console.log(this.state.attendenceArray)}
                   {Object.keys(this.state.attendenceArray[0]).map(e => {
                     return <td scope="col">{e}</td>;
                   })}

@@ -30,7 +30,7 @@ class Attendence extends Component
                 return(
                         <div className="choiceSelection">
                                 <div>
-                                    <Link to={ManualRoute}><button >Add Manually</button></Link>
+                                    <Link to={ManualRoute}><button >Get Attendance</button></Link>
                                 </div>
                                 <div>
                                     <Link to={ExcelRoute}><button>Add Through Excel</button></Link>

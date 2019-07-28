@@ -15,10 +15,12 @@ import DeleteTeacher from "./components/deleteteachers";
 import DeleteStudents from "./components/deletestudents";
 import AddSubject from "./components/AddSubject";
 import deleteSubject from "./components/deleteSubject";
-
+import UploadAttendanceExcel from "./components/Attendance/uploadAttendance";
+import attendanceConf from "./components/AttendenceIssue"
 import { connect } from "react-redux";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import analyticsController from "./components/Analytics/Analytics"
 class App extends Component {
   render() {
     return (
@@ -32,20 +34,30 @@ class App extends Component {
           <NavLink to="/upload/Delete teacher"> Delete Teachers</NavLink>
           <NavLink to="/upload/Add Subject">Add Subject</NavLink>
           <NavLink to="/upload/Delete Subject">Delete Subject</NavLink>
-          <NavLink to="/upload/Upload Attendence">Upload Attendence</NavLink>
+          <NavLink to="/attendance/upload/Upload Attendence">Upload Attendence</NavLink>
+          <NavLink to="/analytics/upload/Analytics">Analytics</NavLink>
           <NavLink to="/signup">SignUp</NavLink>
           <NavLink to="/login">Login</NavLink>
         </div>
 
-        <div className="main ml-3 mr-3">
-          <Route path="/*/:header" component={headerComponent} />
-          <div className="main2">
+        <div className="main" style={{margin:0,padding:0}}>
+          <attendanceConf/>
+          <div className="main2" style={{margin:0,style:0}}>
             <Route exact path="/upload/:header" component={Attendence} />
             <Route
               exact
               path="/manualEntry/Upload Attendence"
               component={ManualData}
             />
+            <Route
+              exact
+              path="/analytics/upload/Analytics"
+              component={analyticsController}
+            />
+            <Route
+              exact path="/attendance/upload/Upload Attendence"
+              component={attendanceConf} 
+              />
             <Route path="/excelEntry/:parameters" component={ExcelData} />
             <Route
               exact
