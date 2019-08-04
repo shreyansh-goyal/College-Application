@@ -42,8 +42,10 @@ function anayticsController(props){
     };
     return(
             <div className={classes.root}>
+
                         <AppBar position="static" color="primary">
               <Toolbar color="primary">
+              
                 <form className={classes.root} autoComplete="off">
                 <span style={{margin:"auto 30px",fontWeight:"800",fontSize:"20px",color:"#f50057",border:"2px solid #f50057",padding:"10px",borderRadius:"10px"}}>ANALYTICS</span>
                 <Button  variant="contained" color="secondary" style={{margin:"0 6px",fontWeight:"800",fontSize:"11px"}}>SMS</Button>

@@ -16,16 +16,17 @@ import DeleteStudents from "./components/deletestudents";
 import AddSubject from "./components/AddSubject";
 import deleteSubject from "./components/deleteSubject";
 import UploadAttendanceExcel from "./components/Attendance/uploadAttendance";
-import attendanceConf from "./components/AttendenceIssue"
+import attendanceConf from "./components/AttendenceIssue";
 import { connect } from "react-redux";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import analyticsController from "./components/Analytics/Analytics"
+import analyticsController from "./components/Analytics/Analytics";
 import analyticsWrapper from "./components/Analytics/AnalyticsWrapper";
 class App extends Component {
   render() {
     return (
       <div className="App main-area">
+        {/* <analyticsController /> */}
         <div className="sidenav">
           <NavLink to="/upload/Add Students">Add Students</NavLink>
           <NavLink to="/upload/Update Students">Update Students</NavLink>
@@ -35,15 +36,18 @@ class App extends Component {
           <NavLink to="/upload/Delete teacher"> Delete Teachers</NavLink>
           <NavLink to="/upload/Add Subject">Add Subject</NavLink>
           <NavLink to="/upload/Delete Subject">Delete Subject</NavLink>
-          <NavLink to="/attendance/upload/Upload Attendence">Upload Attendence</NavLink>
+          <NavLink to="/attendance/upload/Upload Attendence">
+            Upload Attendence
+          </NavLink>
           <NavLink to="/analytics/upload/Analytics">Analytics</NavLink>
           <NavLink to="/signup">SignUp</NavLink>
           <NavLink to="/login">Login</NavLink>
         </div>
 
-        <div className="main" style={{margin:0,padding:0}}>
-          <attendanceConf/>
-          <div className="main2" style={{margin:0,style:0}}>
+        <div className="main" style={{ margin: 0, padding: 0 }}>
+          <attendanceConf />
+
+          <div className="main2" style={{ margin: 0, style: 0 }}>
             <Route exact path="/upload/:header" component={Attendence} />
             <Route
               exact
@@ -56,9 +60,10 @@ class App extends Component {
               component={analyticsWrapper}
             />
             <Route
-              exact path="/attendance/upload/Upload Attendence"
-              component={attendanceConf} 
-              />
+              exact
+              path="/attendance/upload/Upload Attendence"
+              component={attendanceConf}
+            />
             <Route path="/excelEntry/:parameters" component={ExcelData} />
             <Route
               exact
@@ -100,6 +105,7 @@ class App extends Component {
               path="/manualEntry/Delete Subject"
               component={deleteSubject}
             />
+
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             {/* <Route path="/courses" component={Courses}/>
