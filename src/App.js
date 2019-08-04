@@ -21,6 +21,7 @@ import { connect } from "react-redux";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import analyticsController from "./components/Analytics/Analytics"
+import analyticsWrapper from "./components/Analytics/AnalyticsWrapper";
 class App extends Component {
   render() {
     return (
@@ -52,7 +53,7 @@ class App extends Component {
             <Route
               exact
               path="/analytics/upload/Analytics"
-              component={analyticsController}
+              component={analyticsWrapper}
             />
             <Route
               exact path="/attendance/upload/Upload Attendence"

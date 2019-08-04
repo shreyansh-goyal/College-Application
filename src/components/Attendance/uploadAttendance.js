@@ -67,8 +67,8 @@ switch(e.target.name)
   }
 }
 }
-function createData(enrollmentNo, semester, section, group, totalPresent,totalAbsent) {
-  return { enrollmentNo, semester, section, group, totalAbsent,totalPresent };
+function createData(enrollment_no,totalPresent,totalAbsent) {
+  return { enrollment_no,totalAbsent,totalPresent };
 }
 var rows = [
 ];
@@ -79,6 +79,7 @@ function browseExcel(data)
     var {EnrollmentNo,Semester,Section,Group,Present,Absent}=i;
     rows.push(createData(EnrollmentNo,Semester,Section,Group,Present,Absent));
   }
+  return rows;
 }
 export default function UploadAttendanceExcel(){
     const classes = useStyles();
@@ -173,34 +174,8 @@ export default function UploadAttendanceExcel(){
                 </Toolbar>
             </AppBar>
             <div style={{width:"80%",margin:"0 auto"}}>
-                    <ExcelComponent action={browseExcel} work="uploadAttendance" style={{display:"block"}}/>
-                    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell style={{fontSize:"15px"}}>Dessert (100g serving)</TableCell>
-            <TableCell style={{fontSize:"15px"}} align="right">Calories</TableCell>
-            <TableCell style={{fontSize:"15px"}} align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell style={{fontSize:"15px"}} align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell style={{fontSize:"15px"}} align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.name}>
-              <TableCell style={{fontSize:"15px"}} component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell style={{fontSize:"15px"}} align="right">{row.calories}</TableCell>
-              <TableCell style={{fontSize:"15px"}} align="right">{row.fat}</TableCell>
-              <TableCell style={{fontSize:"15px"}} align="right">{row.carbs}</TableCell>
-              <TableCell style={{fontSize:"15px"}} align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Paper>
-            </div>
+                    <ExcelComponent action={browseExcel} data={state} work="uploadAttendance" style={{display:"block"}}/>
+              </div>
         </div>
         )
 }
