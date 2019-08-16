@@ -13,7 +13,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Toolbar from '@material-ui/core/Toolbar'
+import Toolbar from '@material-ui/core/Toolbar';
+import XLSX from 'xlsx';
 
 class analyticsWrapper extends Component {
   constructor(props) {
@@ -26,7 +27,9 @@ class analyticsWrapper extends Component {
       teacher: null,
       skip: null,
       limit: null,
-      data: []
+      data: [],
+      message:[],
+    
     };
   }
 
@@ -176,6 +179,7 @@ class analyticsWrapper extends Component {
             this.setState({
               data
             });
+            console.log(data);
           });
         });
       }
@@ -313,10 +317,45 @@ class analyticsWrapper extends Component {
       }
     }
   };
+  addToSendMessageArray=(e)=>{
+    var flag=0;
+    for(let i in this.state.message)
+    {
+      if(this.state.message[i]==e)
+      {
+        flag=1;
+      }
+    }
+    if(flag==0)
+    {
+      this.setState({
+        message:[...this.state.message,e]
+      })
+    }
+    else{
+      var a = this.state.message.filter(element=>{
+        if(e==element)
+        {
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+      })
+      console.log(a);
+      this.setState({
+        message:[...a]
+      })
+    }
+    console.log(this.state.message);
+  }
+  Download=()=>{
+
+  }
   render() {
     return (
       <div>
-        hello
         <div style={{     display: 'flex',
       flexWrap: 'wrap',}}>
 
@@ -328,7 +367,7 @@ class analyticsWrapper extends Component {
 <span style={{margin:"auto 30px",fontWeight:"800",fontSize:"20px",color:"#f50057",border:"2px solid #f50057",padding:"10px",borderRadius:"10px"}}>ANALYTICS</span>
 <Button  variant="contained" color="secondary" style={{margin:"0 6px",fontWeight:"800",fontSize:"11px"}}>SMS</Button>
 <Button variant="contained" color="secondary" style={{margin:"0 6px",fontWeight:"800",fontSize:"11px"}}>Gmail</Button>
-<Button variant="contained" color="secondary" style={{margin:"0 6px",fontWeight:"800",fontSize:"11px"}}>Download</Button>
+<Button variant="contained" color="secondary" onClick={this.Download} style={{margin:"0 6px",fontWeight:"800",fontSize:"11px"}}>Download</Button>
 <TextField
 style={{margin:"auto 10px",width:"80px"}}
 id="standard-name"
@@ -346,7 +385,7 @@ onChange={this.handleChange}
 name="limit"
 />
 <div style={{marginTop:"40px"}}>
-<FormControl style={{marginLeft:"30px",minWidth:"120"}} >
+<FormControl style={{margin:"10px",width:"100px"}} >
 <InputLabel style={{color:"white",fontSize:"20px"}}  shrink htmlFor="age-simple">Semester</InputLabel>
       <Select
       style={{color:"white"}}
@@ -360,13 +399,13 @@ name="limit"
       <MenuItem value={2}>2nd</MenuItem>
       <MenuItem value={3}>3rd</MenuItem>
       <MenuItem value={4}>4th</MenuItem>
-      <MenuItem value={1}>5th</MenuItem>
-      <MenuItem value={2}>6th</MenuItem>
-      <MenuItem value={3}>7th</MenuItem>
-      <MenuItem value={4}>8th</MenuItem>
+      <MenuItem value={5}>5th</MenuItem>
+      <MenuItem value={6}>6th</MenuItem>
+      <MenuItem value={7}>7th</MenuItem>
+      <MenuItem value={8}>8th</MenuItem>
     </Select>
 </FormControl>
-<FormControl style={{minWidth:"120"}}>
+<FormControl style={{width:"100px",margin:"10px"}}>
 <InputLabel style={{color:"white",fontSize:"20px"}}  shrink htmlFor="age-simple">Branch</InputLabel>
       <Select
       style={{color:"white"}}
@@ -385,7 +424,7 @@ name="limit"
       <MenuItem value={"BBA"}>BBA</MenuItem>
     </Select>
 </FormControl>
-<FormControl style={{minWidth:"120"}}>
+<FormControl style={{width:"100px",margin:"10px"}}>
 <InputLabel style={{color:"white",fontSize:"20px"}}  shrink htmlFor="age-simple">Section</InputLabel>
       <Select
       style={{color:"white"}}
@@ -401,7 +440,7 @@ name="limit"
       <MenuItem value={null}>No Section</MenuItem>
     </Select>
 </FormControl>
-<FormControl style={{minWidth:"120"}}>
+<FormControl style={{width:"100px",margin:"10px"}}>
 <InputLabel style={{color:"white",fontSize:"20px"}}  shrink htmlFor="age-simple">Group</InputLabel>
       <Select
       style={{color:"white"}}
@@ -438,7 +477,7 @@ fetch
 <TableCell style={{width:"100%",fontSize:"20px"}} align="right">Select</TableCell>
 </TableRow>
 </TableHead>
-{/* <TableBody>
+{ <TableBody>
 {
     this.state.data.map(row => (
 <TableRow key={row.enrollment_no}>
@@ -450,10 +489,11 @@ fetch
 <TableCell  style={{fontSize:"10px"}} align="right">{row.group}</TableCell>
 <TableCell  style={{fontSize:"10px"}} align="right">{row.totalPresent}</TableCell>
 <TableCell  style={{fontSize:"10px"}} align="right">{row.totalAbsent}</TableCell>
+<TableCell  style={{fontSize:"10px"}} align="right"><input type="checkbox" onClick={()=>{this.addToSendMessageArray(row.enrollment_no)}}></input></TableCell>
 </TableRow>
 ))
 }
-</TableBody> */}
+</TableBody> }
 </Table>
 </Paper>
 </div>

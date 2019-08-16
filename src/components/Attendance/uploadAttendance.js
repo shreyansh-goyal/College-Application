@@ -10,7 +10,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
-import ExcelComponent from "../ExcelData";
+import ExcelComponent from "../ExcelData/ExcelDataAttendance";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -81,8 +81,9 @@ function browseExcel(data)
   }
   return rows;
 }
-export default function UploadAttendanceExcel(){
-    const classes = useStyles();
+
+const UploadAttendanceExcel=()=>{
+  const classes = useStyles();
         return(
         <div className={classes.root}>
           <AppBar position="static" color="primary">
@@ -179,3 +180,4 @@ export default function UploadAttendanceExcel(){
         </div>
         )
 }
+export default UploadAttendanceExcel

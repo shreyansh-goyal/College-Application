@@ -1,6 +1,6 @@
 import React,{Component} from "react"
 import UploadAttendanceExcel from "./Attendance/uploadAttendance"
-class attendanceConf extends Component{
+export default class attendanceConf extends Component{
     render()
     {
         return(
@@ -10,4 +10,3 @@ class attendanceConf extends Component{
         )
     }
 }
-export default attendanceConf;

@@ -68,7 +68,7 @@ function anayticsController(props){
                 name="limit"
             />
                 <div style={{marginTop:"40px"}}>
-                  <FormControl style={{marginLeft:"30px"}} className={classes.formControl}>
+                  <FormControl style={{margin:"30px",width:"400px"}} className={classes.formControl}>
                   <InputLabel style={{color:"white",fontSize:"20px"}}  shrink htmlFor="age-simple">Semester</InputLabel>
                               <Select
                               style={{color:"white"}}
@@ -89,7 +89,7 @@ function anayticsController(props){
                             </Select>
                   </FormControl>
                   <FormControl className={classes.formControl}>
-                  <InputLabel style={{color:"white",fontSize:"20px"}}  shrink htmlFor="age-simple">Branch</InputLabel>
+                  <InputLabel style={{color:"white",fontSize:"20px",width:"100px"}}  shrink htmlFor="age-simple">Branch</InputLabel>
                               <Select
                               style={{color:"white"}}
                               inputProps={{
