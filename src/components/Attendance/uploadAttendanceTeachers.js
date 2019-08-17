@@ -84,13 +84,18 @@ class uploadAttendanceByTeachers extends Component{
             if(arr[i].present==false)
             {
             arr[i].totalAbsent++;
-                this.setState({
-                    studentsAttendance:arr
-                })
             }            
         }
-        fetch("https://bpitconnect.herokuapp.com/attendance",{
-            method: 'POST',
+        for(let i in arr)
+        {
+            delete arr[i]["present"];
+        }
+        this.setState({
+            studentsAttendance:arr
+        })
+
+        fetch("https://bpitconnect.herokuapp.com/attendance/"+this.state.studentsAttendance[0].id,{
+            method: 'PUT',
             mode: 'cors', 
             cache: 'no-cache', 
             credentials: 'same-origin', 
@@ -100,8 +105,11 @@ class uploadAttendanceByTeachers extends Component{
             },
             redirect: 'follow', 
             referrer: 'no-referrer', 
-            body: JSON.stringify(this.state.studentsAttendance),
+            body: JSON.stringify(this.state.studentsAttendance[0]),
         }).then(data=>{
+            data.json().then(data=>{
+
+            })
             alert("Congratulation The Data is Uploaded")
             window.location.reload();
             console.log(data);

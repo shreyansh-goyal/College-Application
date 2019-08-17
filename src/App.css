@@ -129,3 +129,11 @@ align-self: center;
 {
   width:70%;
 }
+.someclass{
+  justify-content:"flex-end";
+}
+.loginBackground{
+  height:570px;
+  background-image:url("http://www.bpitindia.com/images/slide-2.jpg");
+  padding:10% 0;
+}
