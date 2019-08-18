@@ -65,7 +65,7 @@ export default class ExcelComponent extends Component {
         this.props.linkData(this.props.subjectID,excelRows);
       }
       else{
-        console.log(excelRows)
+        this.props.sendData(excelRows)
       }
     };
 

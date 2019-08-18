@@ -127,6 +127,7 @@ class electiveManual extends Component{
                         </p>
                     </Toolbar>
                 </AppBar>
+                <div style={{overflowY:"scroll",height:"570px"}}>
                 <FormControl style={{width:"70%"}}> 
                     <TextField
                         required
@@ -262,6 +263,7 @@ class electiveManual extends Component{
                             Upload To The DataBase
                     </Button>
                     </div>
+                </div>
                 </div>
         )
     }
