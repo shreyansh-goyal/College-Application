@@ -4,67 +4,99 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import axios from "axios";
 export default class LoginPage extends Component{
+    constructor(props)
+    {
+      super(props);
+      this.state={
+        loginId:"",
+        password:""
+      }
+    }
+    login=async function(){
+      console.log("called");
+      const x=await axios.post("https://bpitconnect.herokuapp.com/auth/local",{
+        identifier:this.state.loginId,
+        password:this.state.password
+      })
+      this.props.changeView()
+    }
     render()
     {
         return(
             <div className="loginPage">
-            <div style={{height:"100px",display:"flex",justifyContent:"space-between",alignItems:"flex-end"}}>
+            <div data-test="header" style={{height:"100px",display:"flex",justifyContent:"space-between",alignItems:"flex-end"}}>
               <div style={{display:"flex"}}>
-              <img style={{height:"35px",margin:"20px"}} src="http://www.bpitindia.com/images/logo.png"></img>
-              <h3 style={{color:"#44469e",fontWeight:400,fontSize:"30px"}}>BHAGWAN PARSHURAM INSTITUTE OF TECHNOLOGY</h3>
+              <img data-test="logo" style={{height:"35px",margin:"20px"}} src="http://www.bpitindia.com/images/logo.png"></img>
+              <h3  data-test="heading" style={{color:"#44469e",fontWeight:400,fontSize:"30px"}}>BHAGWAN PARSHURAM INSTITUTE OF TECHNOLOGY</h3>
               </div>
-              <div style={{display:"flex",width:"25vw",alignItems:"flex-end"}}>
+              <div data-test="side-logo" style={{display:"flex",width:"25vw",alignItems:"flex-end"}}>
               <img style={{height:"100px"}} src="http://www.bpitindia.com/images/brahim-smaaj.png"></img>
               <p style={{fontSize:"20px",color:"#ee1c26"}} >BHARTIYA BRAHMIN CHARITABLE TRUST</p>  
               </div>
             </div>
-            <div className="loginBackground">
+            <div className="loginBackground" data-test="login-background">
             {
               this.props.signup?(
-                <Card style={{width:"40%",margin:"0 auto"}}>
+                <Card data-test="signup-card" style={{width:"40%",margin:"0 auto"}}>
                 <CardContent>
-                  <p style={{textAlign:"center",fontWeight:"500",fontSize:"20px"}}>Signup Page</p>
-                  <TextField
+                  <p data-test="signup-heading" style={{textAlign:"center",fontWeight:"500",fontSize:"20px"}}>Signup Page</p>
+                  <TextField 
+                    data-test="signup-username"
                     style={{width:"100%"}}
                     id="filled-name"
                     label="Enrollment Number"
                     margin="normal"
                     variant="filled"
+                    value={this.state.loginId}
+                    onChange={(e)=>{this.setState({loginId:e.target.value})}}
+
                   />
                   <TextField
+                    data-test="signup-password"
                     style={{width:"100%"}}
                     id="filled-name"
                     label="Login Password"
                     margin="normal"
                     variant="filled"
+                    value={this.state.password}
+                    onChange={(e)=>{this.setState({password:e.target.value})}}
                   />
                 </CardContent>
                 <CardActions>
-                <Button variant="contained" style={{display:"block",margin:"0 auto"}} color="primary" >Sign In</Button>
+                <Button data-test="signup-button" variant="contained" style={{display:"block",margin:"0 auto"}} color="primary" >Sign In</Button>
                 </CardActions>
               </Card>
                 ):(
-                <Card style={{width:"40%",margin:"0 auto"}}>
+                <Card style={{width:"40%",margin:"0 auto"}} data-test="login-card">
                 <CardContent>
-                  <p style={{textAlign:"center",fontWeight:"500",fontSize:"20px"}}>Login Page</p>
+                  <p data-test="login-heading" style={{textAlign:"center",fontWeight:"500",fontSize:"20px"}}>Login Here</p>
+                  <div  data-test="login-loginId">
                   <TextField
+                    data-test="login-username"
                     style={{width:"100%"}}
                     id="filled-name"
                     label="Login Id"
                     margin="normal"
                     variant="filled"
+                    value={this.state.loginId}
+                    onChange={(event)=>{this.setState({loginId:event.target.value})}}
                   />
+                  </div>
                   <TextField
+                    data-test="login-password"
                     style={{width:"100%"}}
                     id="filled-name"
                     label="Login Password"
                     margin="normal"
                     variant="filled"
+                    value={this.state.password}
+                    onChange={(event)=>{this.setState({password:event.target.value})}}
                   />
                 </CardContent>
                 <CardActions>
-                <Button variant="contained" style={{display:"block",margin:"0 auto"}} color="primary" >Login</Button>
+                <Button variant="contained" data-test="login-button"  onClick={this.login.bind(this)} style={{display:"block",margin:"0 auto"}} color="primary" >Login</Button>
                 </CardActions>
               </Card>  
               )

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import "./App.css";
-import Attendence from "./components/Attendence";
+import Attendence from "./components/ComponentOption/Attendence";
 import { Route } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import ManualData from "./components/ManualData";
-import AddStudent from "./components/addStudentManually";
+import AddStudent from "./components/ManualOperations/addStudentManually";
 import AddTeacher from "./components/addTeachersManually";
-import UpdateStudents from "./components/updateStudentsManually";
+import UpdateStudents from "./components/ManualOperations/updateStudentsManually";
 import UpdateTeachers from "./components/updateTeachersManually";
 import DeleteTeacher from "./components/deleteteachers";
-import DeleteStudents from "./components/deletestudents";
+import DeleteStudents from "./components/ManualOperations/deletestudents";
 import AddSubject from "./components/AddSubject";
 import deleteSubject from "./components/deleteSubject";
 import attendanceConf from "./components/AttendenceIssue";
@@ -31,22 +31,22 @@ class App extends Component {
         admin:[
           {label:"Add Students",to:"/upload/Add Students"},
           {label:"Update Students",to:"/upload/Update Students"},
-          {label:"Delete Student",to:"/upload/DeleteStudents"},
+          {label:"Delete Student",to:"/upload/Delete Students"},
           {label:"Add Teachers",to:"/upload/Add Teachers"},
           {label:"Update Teachers",to:"/upload/Update Teachers"},
-          {label:"Delete Teachers",to:"/upload/Delete teacher"},
-          {label:"Elective Subjects",to:"/upload/ElectiveSubjects"},
+          {label:"Delete Teachers",to:"/upload/Delete Teachers"},
+          {label:"Elective Subjects",to:"/upload/Elective Subjects"},
           {label:"Delete Subject",to:"/upload/Delete Subject"},
           {label:"Analytics",to:"/analytics/upload/Analytics"}],
-      teacher:[
+        teacher:[
         {label:"Upload Attendance",to:"/attendance/upload/Upload Attendence/teachers"},
         {label:"Elective Subjects",to:"/upload/ElectiveSubjects"}
       ],
-      student:[
+        student:[
         {label:"Anaylze Attendance",to:"/attendance/upload/Analyse Attendance"}
       ]},
       role:"admin",
-      loggedIn:false,
+      loggedIn:true,
       signup:true,
       validationAddStudent:["libraryFine",	"rollNo","enrollmentNo","courseId",	"year","isDropped","aggregate","activeBacklogs","placed","tenPercentage",  "twelfthPercentage"],
       fieldAddStudent:["libraryFine",	"rollNo","enrollmentNo",	"courseId",	"year","section","group","studentName","fatherName","motherName","gender","dob","phoneNo","fatherPhoneNo","emailId","fatherEmailId","isDropped","dropReason","aggregate",	"activeBacklogs",	"placed"	,"companyName"	,"tenPercentage"	,"twelfthPercentage"		,"diploma",	"gap",	"enteranceRank"	,"resumeUrl"	,"blockedFromDrive","libraryId","semester"],
@@ -56,13 +56,17 @@ class App extends Component {
       fieldDeleteStudent:["id"],
       fieldAddTeacher:["  teacherId","teacherName","teacherPhone","teacherEmail","officialEmailId","joiningDate"],
       validationAddTeacher:["teacherId"],
+      validationAddStudent:["libraryFine",	"rollNo","enrollmentNo","courseId",	"year","isDropped","aggregate","activeBacklogs","placed","tenPercentage",  "twelfthPercentage"],
+      fieldAddStudent:["libraryFine",	"rollNo","enrollmentNo",	"courseId",	"year","section","group","studentName","fatherName","motherName","gender","dob","phoneNo","fatherPhoneNo","emailId","fatherEmailId","isDropped","dropReason","aggregate",	"activeBacklogs",	"placed"	,"companyName"	,"tenPercentage"	,"twelfthPercentage"		,"diploma",	"gap",	"enteranceRank"	,"resumeUrl"	,"blockedFromDrive","libraryId","semester"],
+      validationAddSubject:["courseId","semester","lab","credit","isElective","isTaught","isMandatory"],
+      fieldAddSubject:["id","subjectId","subjectCode","courseId","semester","subjectName","lab","credit","isElective","isTaught","isMandatory","recommandedBook1","recommandedBook2","teacherId"],
       routeData:[{path:"/upload/:header",component:Attendence},{path:"/attendance/upload/Analyse Attendance",component:Example},
       {path:"/manualEntry/Upload Attendence",component:ManualData},{path:"/analytics/upload/Analytics",component:analyticsWrapper},
       {path:"/attendance/upload/Upload Attendence/teachers",component:uploadAttendanceByTeachers},{path:"/excelEntry/ElectiveSubjects",component:ElectiveSubjectExcel},
       {path:"/manualEntry/ElectiveSubjects",component:electiveManual},{path:"/manualEntry/Add Students",component:AddStudent},
       {path:"/manualEntry/Update Students",component:UpdateStudents},{path:"/attendance/upload/Upload Attendence",component:attendanceConf},
-      {path:"/manualEntry/DeleteStudents",component:DeleteStudents},{path:"/manualEntry/Add Teachers",component:AddTeacher}
-      ,{path:"/manualEntry/Update Teachers",component:UpdateTeachers},{path:"/manualEntry/Delete Teacher",component:DeleteTeacher},
+      {path:"/manualEntry/Delete Students",component:DeleteStudents},{path:"/manualEntry/Add Teachers",component:AddTeacher},
+      {path:"/manualEntry/Update Teachers",component:UpdateTeachers},{path:"/manualEntry/Delete Teachers",component:DeleteTeacher},
       {path:"/manualEntry/Add Subject",component:AddSubject},{path:"/manualEntry/Delete Subject",component:deleteSubject}    ]  
 }
   }
@@ -71,17 +75,15 @@ class App extends Component {
     <div>
       {
         this.state.loggedIn?(
-          <div className="App main-area">
-          {/* <analyticsController /> */}
+          <div data-test="main-app-page" className="App main-area">
           <div className="sidenav">
             {
               this.state.role=="admin"?(
-            <div>
+            <div data-test="admin">
               {
                 this.state.navlinkData.admin.map(link=>{
-                   {/* <NavLink to="/attendance/upload/Upload Attendence">Upload Attendence</NavLink> */}
                   return(
-                    <NavLink to={link.to}>{link.label}</NavLink>    
+                    <NavLink data-test="admin-link" to={link.to}>{link.label}</NavLink>    
                   )
                 })
               }
@@ -90,23 +92,27 @@ class App extends Component {
             }
             {
               this.state.role=="student"?(
-                this.state.navlinkData.student.map(link=>{
-                {
-                 return(
-                   <NavLink to={link.to}>{link.label}</NavLink>    
-                 )
-                }})
-              ):("")
+                <div data-test="student">
+                  {
+                      this.state.navlinkData.student.map(link=>{
+                      {
+                      return(
+                        <NavLink data-test="student-link" to={link.to}>{link.label}</NavLink>    
+                      )
+                      }})
+                  }
+                 </div>
+                ):("")
             }
             {
               this.state.role=="teacher"?
               (
-                <div>
+                <div data-test="teacher">
                   {
                     this.state.navlinkData.teacher.map(link=>{
                     {
                     return(
-                      <NavLink to={link.to}>{link.label}</NavLink>    
+                      <NavLink data-test="teacher-link" to={link.to}>{link.label}</NavLink>    
                     )
                     }})       
                   }
@@ -142,8 +148,8 @@ class App extends Component {
               component={() => <MainTable api="/students" method="PUT" message="Update Students" validation={this.state.validationAddStudent} fields={this.state.fieldAddStudent } />}
               />
               <Route 
+              path="/excelEntry/Delete Students"
               exact
-              path="/excelEntry/DeleteStudents"
               component={() => <MainTable api="/students" method="DELETE" message="Delete Students" validation={this.state.validationDeleteStudent} fields={this.state.fieldDeleteStudent } />}
               />
               <Route 
@@ -158,13 +164,13 @@ class App extends Component {
               />
               <Route 
               exact
-              path="/excelEntry/Delete teacher"
+              path="/excelEntry/Delete Teachers"
               component={() => <MainTable api="​/teachers" method="DELETE" message="Delete Teachers" validation={this.state.validationAddTeacher} fields={this.state.fieldAddTeacher } />}
               />
               <Route 
               exact
               path="/excelEntry/Add Subject"
-              component={() => <MainTable api="/subjects" method="POST" message="Add Subjects" validation={this.state.validationAddTeacher} fields={this.state.fieldAddTeacher } />}
+              component={() => <MainTable api="/subjects" method="POST" message="Add Subjects" validation={this.state.validationAddSubject} fields={this.state.fieldAddTeacher } />}
               />
               <Route 
               exact
@@ -175,7 +181,7 @@ class App extends Component {
           </div>
         </div>  
         ):(
-          <LoginPage signup={this.signup}/>
+          <LoginPage data-test="login-page" changeView={()=>{this.setState({loggedIn:true})}} signup={this.signup}/>
           )
       }
       </div>

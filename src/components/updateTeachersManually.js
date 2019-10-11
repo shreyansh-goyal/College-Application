@@ -18,14 +18,10 @@ class AddTeachers extends Component {
     console.log("recieve the props", this.state);
   }
   findTeacher = () => {
-    console.log(this.refs.findTeacher.value);
     var arr = this.state.teachersdetails.filter(e => {
       return e.teacherId == this.refs.findTeacher.value;
     });
     if (arr.length > 0) {
-      console.log("I am happy");
-      console.log("this is the array", arr);
-      console.log(this.state);
       this.setState({ updateDetails: arr[0] });
     }
   };

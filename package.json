@@ -24,6 +24,7 @@
     "react-vis": "^1.11.7",
     "recharts": "^1.7.1",
     "redux": "^4.0.1",
+    "sinon": "^7.4.2",
     "xlsx": "^0.14.2"
   },
   "scripts": {
@@ -40,5 +41,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0"
+  }
 }

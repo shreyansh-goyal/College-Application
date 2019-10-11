@@ -31,6 +31,7 @@ class DeleteStudents extends Component {
         <div class="form-group input-block">
           <label>Enter Student Id</label>
           <input
+            data-test="student-input"
             type="text"
             ref="studentId"
             class="form-control"
@@ -41,7 +42,7 @@ class DeleteStudents extends Component {
           style={{ display: "flex", justifyContent: "center" }}
           class="form-group input-block"
         >
-          <button className="btn btn-info" onClick={this.deleteStudent}>
+          <button data-test="delete student" className="btn btn-info" onClick={this.deleteStudent}>
             Delete Student
           </button>
         </div>
