@@ -1,20 +1,29 @@
 import React,{Component} from 'react'
 import axios from "axios"
-
+import {RedditTextField} from "../FormElements/GeneralInput";
+import {GeneralButton} from "../FormElements/GeneralButton";
 class AddStudents extends Component{
     state={
         studentDetails:{}
     };
+    onChange(e,name) {
+        this.setState(
+            {
+                ...this.state,
+                studentDetails:{[name]: e.target.value }
+        
+            })}
     findStudent=()=>
     {
-        axios.get('https://bpitconnect.herokuapp.com/students?enrollmentNo='+parseInt(this.refs.findstudent.value)).then(data=>{
-        console.log(data);        
-        this.setState({
-            studentDetails:data.data[0]
-        })
-        }).catch(err=>{
-            console.log("this error is occured",err)
-        })
+        console.log(this.state);
+        // axios.get('https://bpitconnect.herokuapp.com/students?enrollmentNo='+parseInt(this.refs.findstudent.value)).then(data=>{
+        // console.log(data);        
+        // this.setState({
+        //     studentDetails:data.data[0]
+        // })
+        // }).catch(err=>{
+        //     console.log("this error is occured",err)
+        // })
     }
     updateStudent=()=>
     {console.log(this.state);
@@ -29,17 +38,19 @@ class AddStudents extends Component{
             console.log("some error occured while updating the the student record",err);
         })
     }
+
     render()
     {
         return(
             <div>
-                <div class="form-group input-block">
-                    <label>Enrollment number</label>
-                    <input data-test="enrollment-no" type="text" ref="findstudent" class="form-control" placeholder="Enter Enrollment no"/>
-                </div>
-                <div class="form-group input-block">
-                    <button data-test="find-student" className="btn btn-info" style={{margin:"0 auto"}} onClick={this.findStudent}>Find the student</button>
-                </div>                
+                <RedditTextField
+                onChange={(e)=>{this.onChange(e,"enrollmentNo")}}
+                label="Enrollment Number"
+                defaultValue=""
+                variant="filled"
+                id="reddit-input"
+                />
+                <GeneralButton onClick={this.findStudent} text="Search&nbsp;&nbsp;Student" icon="search" width="9vw"/>
                 <hr/>
                 <div class="form-group input-block">
                     <label>Name</label>
