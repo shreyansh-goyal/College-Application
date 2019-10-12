@@ -1,9 +1,7 @@
 export const inputArrayFields=[
     {name:"Student Name",changeFields:"studentName"},
-    {name:"Section",changeFields:"section"},
     {name:"Roll Number",changeFields:"rollNo"},
     {name:"Enrollment Number",changeFields:"enrollmentNo"},
-    {name:"Group",changeFields:"group"},
     {name:"Phone Number",changeFields:"phoneNo"},
     {name:"Email ID",changeFields:"emailId"},
     {name:"Father's Name",changeFields:"fatherName"},
@@ -11,7 +9,6 @@ export const inputArrayFields=[
     {name:"Father's Email Id",changeFields:"fatherEmailId"},
     {name:"Mother's Name",changeFields:"motherName"},
     {name:"Gender",changeFields:"gender"},
-    {name:"Date Of Birth",changeFields:"dob"},
     {name:"Aggregate",changeFields:"aggregate"},
     {name:"Active Backlogs",changeFields:"activeBacklogs"},
     {name:"Placed",changeFields:"placed"},
@@ -38,6 +35,42 @@ export const selectArrayFields=[
     },
     {
         name:"Semester",options:["1","2","3","4","5","6","7","8"]
+    },
+    {
+        name:"Section",changeFields:"section",options:["A","B"]
     }
-
 ]
+export const dateArrayField=[
+    {name:"Date Of Birth",changeFields:"dob"}
+]
+export const naturalState={
+    studentName:"",
+    section:"",
+    rollNo:"",
+    enrollmentNo:"",
+    phoneNo:"",
+    emailId:"",
+    fatherName:"",
+    fatherPhoneNo:"",
+    fatherEmailId:"",
+    motherName:"",
+    gender:"",
+    dob:"",
+    aggregate:"",
+    activeBacklogs:"",
+    placed:"",
+    companyName:"",
+    tenPercentage:"",
+    twelfthPercentage:"",
+    diploma:"",
+    gap:"",
+    enteranceRank:"",
+    resumeUrl:"",
+    blockedFromDrive:"",
+    libraryId:"",
+    libraryFine:"",
+    branch:"",
+    year:"",
+    group:"",
+    semester:""
+}

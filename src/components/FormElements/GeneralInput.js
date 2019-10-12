@@ -3,7 +3,8 @@ import TextField from '@material-ui/core/TextField';
 import { fade, withStyles, makeStyles, createMuiTheme } from '@material-ui/core/styles';
 const useStylesReddit = makeStyles(theme => ({
     inputRoot: {
-      fontSize:"17px", 
+      padding:"5px",
+      fontSize:"14px", 
       border: '1px solid #e2e2e1',
       overflow: 'hidden',
       borderRadius: 4,
@@ -19,7 +20,7 @@ const useStylesReddit = makeStyles(theme => ({
       }
     },
     labelRoot: {
-      fontSize: "13px",
+      fontSize: "12px",
       "&$labelFocused": {
         color: "purple"
       }},

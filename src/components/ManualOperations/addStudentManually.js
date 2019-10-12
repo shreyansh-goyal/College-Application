@@ -3,6 +3,7 @@ import axios from "axios";
 import {RedditTextField} from "../FormElements/GeneralInput";
 import {inputArrayFields} from "./ADDSTUDENTMANUALDATA";
 import {selectArrayFields} from "./ADDSTUDENTMANUALDATA";
+import {dateArrayField} from "./ADDSTUDENTMANUALDATA"
 const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTcwNzgxODgyLCJleHAiOjE1NzMzNzM4ODJ9.ptamzLKAqXBT8v-8k-eIZ0j2maGjiIqK--0iW6n5vaw";
 var config={
   headers: {'Authorization':"bearer " + token}
@@ -82,6 +83,20 @@ class AddStudents extends Component {
           />
         )
         })
+      }
+      {
+      dateArrayField.map(dateElement=>{
+        return(
+          <RedditTextField
+              onChange={(e)=>{this.onChange(e,dateElement.changeFields)}}
+              label={dateElement.name}
+              value={this.state[dateElement.changeFields]}
+              defaultValue=""
+              variant="filled"
+              id="reddit-input"
+              type="date"/>
+            )
+        }) 
       }
       {
         selectArrayFields.map(selectFields=>{

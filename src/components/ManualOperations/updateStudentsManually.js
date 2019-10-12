@@ -1,10 +1,20 @@
-import React,{Component} from 'react'
+import React,{Component} from 'react';
 import axios from "axios"
 import {RedditTextField} from "../FormElements/GeneralInput";
 import {GeneralButton} from "../FormElements/GeneralButton";
+import {inputArrayFields} from "./UPDATESTUDENTMANUALDATA";
+import {selectArrayFields} from "./UPDATESTUDENTMANUALDATA";
+import {naturalState} from "./UPDATESTUDENTMANUALDATA";
+import {dateArrayField} from "./UPDATESTUDENTMANUALDATA"
+const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTcwNzgxODgyLCJleHAiOjE1NzMzNzM4ODJ9.ptamzLKAqXBT8v-8k-eIZ0j2maGjiIqK--0iW6n5vaw";
+var config={
+  headers: {'Authorization':"bearer " + token}
+}
 class AddStudents extends Component{
     state={
-        studentDetails:{}
+        studentDetails:{
+            ...naturalState
+        }
     };
     onChange(e,name) {
         this.setState(
@@ -14,16 +24,20 @@ class AddStudents extends Component{
         
             })}
     findStudent=()=>
-    {
-        console.log(this.state);
-        // axios.get('https://bpitconnect.herokuapp.com/students?enrollmentNo='+parseInt(this.refs.findstudent.value)).then(data=>{
-        // console.log(data);        
-        // this.setState({
-        //     studentDetails:data.data[0]
-        // })
-        // }).catch(err=>{
-        //     console.log("this error is occured",err)
-        // })
+    { 
+        axios.get('http://18.190.25.34:1337/students?enrollmentNo='+parseInt(this.state.studentDetails.enrollmentNo),config).then(data=>{
+        console.log(data);
+        if(data.data[0].enrollmentNo)
+        {
+            this.setState({
+                studentDetails:{
+                    ...data.data[0]
+                }
+            })  
+        }
+        }).catch(err=>{
+            console.log("this error is occured",err)
+        })
     }
     updateStudent=()=>
     {console.log(this.state);
@@ -42,7 +56,7 @@ class AddStudents extends Component{
     render()
     {
         return(
-            <div>
+            <div style={{height:"52vw",overflowY:"scroll"}}>
                 <RedditTextField
                 onChange={(e)=>{this.onChange(e,"enrollmentNo")}}
                 label="Enrollment Number"
@@ -50,80 +64,65 @@ class AddStudents extends Component{
                 variant="filled"
                 id="reddit-input"
                 />
-                <GeneralButton onClick={this.findStudent} text="Search&nbsp;&nbsp;Student" icon="search" width="9vw"/>
+                {/* BUTTON IS NOT CLICKABLE I HAD TO USE A DIV TO MAKE THE GENERAL BUTTON CLICKABLE */}
+                <div onClick={this.findStudent}>
+                <GeneralButton text="Search&nbsp;&nbsp;Student" icon="search" width="9vw"/>
+                </div>
                 <hr/>
-                <div class="form-group input-block">
-                    <label>Name</label>
-                    <input  data-test="name" type="text" class="form-control" ref="name" onChange={(e)=>{this.setState({studentDetails:{...this.state.studentDetails,studentName:e.target.value}})}}  placeholder={this.state.studentDetails?this.state.studentDetails.studentName:"studentName"}/>
+               {/* 
+                   PERFORMANCE ISSUES REGARDING THE INPUT ENTRIES OVER HERE
+                   INPUT IS CHANGING THE STATE AND CHANGE IN THE STATE CHANGE THE INPUT
+                   CAUSE A LOT OF RERENDERING
+                */}
+                {/*
+                    WHEN WE USE THE DATEPICKER THE BUTTON MODULE IN MATERIAL UI IS SHOWING SOME INCONSISTENCY
+                */}
+                {
+                    inputArrayFields.map(textFields=>{
+                        return(
+                            <RedditTextField
+                            onChange={(e)=>{this.onChange(e,textFields.changeFields)}}
+                            label={textFields.name}
+                            value={this.state.studentDetails[textFields.changeFields]}
+                            defaultValue={this.state.studentDetails[textFields.changeFields]}
+                            variant="filled"
+                            id="reddit-input"
+                            />
+                        )
+                    })
+                }
+                {
+                   dateArrayField.map(dateElement=>{
+                       return(
+                        <RedditTextField
+                        onChange={(e)=>{this.onChange(e,dateElement.changeFields)}}
+                        label={dateElement.name}
+                        value={this.state.studentDetails[dateElement.changeFields]}
+                        defaultValue=""
+                        variant="filled"
+                        id="reddit-input"
+                        type="date"/>
+                       )
+                   }) 
+                }
+
+                {
+                        selectArrayFields.map(selectFields=>{
+                        return(
+                            <select style={{width:"95%",margin:"20px auto",height:"4vw"}}  data-test="branch-input" onChange={(e)=>{this.onChange(e,selectFields.changeFields)}} class="form-control">
+                            <option>{selectFields.name}</option>
+                            {
+                            selectFields.options.map(option=>{
+                            return(
+                                <option>{option}</option>
+                            )
+                            })
+                            }
+                            </select>
+                        )
+                        })
+                }
                 </div>
-                <div class="form-group input-block">
-                    <label>Branch</label>
-                    <select data-test="branch" onChange={(e)=>{this.setState({studentDetails:{...this.state.studentDetails,branch:e.target.value}})}} class="form-control">
-                        <option>CSE</option>
-                        <option>IT</option>
-                        <option>ECE</option>
-                        <option>EEE</option>
-                        <option>MBA</option>
-                        <option>BBA</option>
-                    </select>
-                </div>
-                <div class="form-group input-block">
-                    <label>Year</label>
-                    <select data-test="year" ref="year" onChange={(e)=>{this.setState({...this.state.studentDetails,studentDetails:{year:e.target.value}})}} class="form-control">
-                        <option>{this.state.studentDetails?this.state.studentDetails.year:"year"}</option>
-                        <option>1st</option>
-                        <option>2nd</option>
-                        <option>3rd</option>
-                        <option>4th</option>
-                    </select>
-                </div>
-                <div class="form-group input-block">
-                    <label>Section</label>
-                    <input data-test="section" type="text" ref="section" onChange={(e)=>{this.setState({studentDetails:{...this.state.studentDetails,section:e.target.value}})}} placeholder={this.state.studentDetails?this.state.studentDetails.section:"section"} class="form-control"/>
-                </div>
-                <div class="form-group input-block">
-                    <label>Roll No</label>
-                    <input data-test="roll-no" type="text" ref="rollno" onChange={(e)=>{this.setState({studentDetails:{...this.state.studentDetails,rollNo:e.target.value}})}} class="form-control" placeholder="Enter Roll no"/>
-                </div>
-                <div class="form-group input-block">
-                    <label>Enrollment No</label>
-                    <input data-test="Enrollment-no"type="text" ref="enrollmentNo" onChange={(e)=>{this.setState({studentDetails:{...this.state.studentDetails,enrollmentNo:e.target.value}})}} class="form-control"  placeholder={this.state.studentDetails?this.state.studentDetails.enrollmentNo:"enrollmentNo"} />
-                </div>
-                <div class="form-group input-block">
-                    <label>Group</label>
-                    <select data-test="group" ref="group" onChange={(e)=>{this.setState({studentDetails:{...this.state.studentDetails,group:e.target.value}})}} class="form-control">
-                        <option>G1</option>
-                        <option>G2</option>
-                    </select>
-                </div>
-                <div data-test="pno" class="form-group input-block">
-                    <label>Phone No</label>
-                    <input data-test="phone-no" type="text" ref="phoneNo" onChange={(e)=>{this.setState({studentDetails:{...this.state.studentDetails,phoneNo:e.target.value}})}} class="form-control" placeholder={this.state.studentDetails?this.state.studentDetails.phoneNo:"phoneNo"}/>
-                </div>
-                <div data-test="email" class="form-group input-block">
-                    <label>Email Id</label>
-                    <input data-test="emaidId" type="text" ref="email" onChange={(e)=>{this.setState({studentDetails:{...this.state.studentDetails,emailId:e.target.value}})}} class="form-control" placeholder={this.state.studentDetails?this.state.studentDetails.emailId:"emailId"}/>
-                </div>
-                <div class="form-group input-block">
-                    <label>Father's Name</label>
-                    <input data-test="father-name" type="text" ref="Fname" class="form-control" onChange={(e)=>{this.setState({studentDetails:{...this.state.studentDetails,fatherName:e.target.value}})}} placeholder={this.state.studentDetails?this.state.studentDetails.fatherName:"father's name"}/>
-                </div>
-                <div class="form-group input-block">
-                    <label>Father's Phone Number</label>
-                    <input data-test="father-phone" type="text" ref="fPhoneNo" onChange={(e)=>{this.setState({studentDetails:{...this.state.studentDetails,fatherPhoneNo:e.target.value}})}} class="form-control" placeholder={this.state.studentDetails?this.state.studentDetails.fatherName:"father's phone number"}/>
-                </div>
-                <div class="form-group input-block">
-                    <label>Father's Email Id</label>
-                    <input type="text" data-test="fEmail" ref="fEmail"  onChange={(e)=>{this.setState({studentDetails:{...this.state.studentDetails,fatherEmailId:e.target.value}})}} class="form-control" placeholder={this.state.studentDetails?this.state.studentDetails.emailId:"father's email Id"}/>
-                </div>
-                <div class="form-group input-block">
-                    <label>Mother's Name</label>
-                    <input data-test="Mname" type="text" ref="Mname"  class="form-control" onChange={(e)=>{this.setState({studentDetails:{motherName:e.target.value}})}} placeholder={this.state.studentDetails?this.state.studentDetails.motherName:"mother's name"}/>
-                </div>
-                <div class="form-group input-block">
-                    <button data-test="update-student" className="btn btn-info" onClick={this.updateStudent}>Submit Student</button>
-                </div>
-            </div>
         )
     }
 }
