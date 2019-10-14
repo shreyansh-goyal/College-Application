@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import {RedditTextField} from "../FormElements/GeneralInput";
+import {RedditTextField} from "../../FormElements/GeneralInput";
 import {inputArrayFields} from "./ADDSTUDENTMANUALDATA";
 import {selectArrayFields} from "./ADDSTUDENTMANUALDATA";
 import {dateArrayField} from "./ADDSTUDENTMANUALDATA"

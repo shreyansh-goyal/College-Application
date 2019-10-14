@@ -7,6 +7,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
+import {inputArrayField} from "./ELECTIVESUBJECTSMANUALDATA";
+import {RedditTextField} from '../../FormElements/GeneralInput';
+import {multiOptionsField} from "./ELECTIVESUBJECTSMANUALDATA";
+import {GeneralButton} from "../../FormElements/GeneralButton";
 class electiveManual extends Component{
 
     constructor(props)
@@ -119,15 +123,48 @@ class electiveManual extends Component{
     render()
     {
         return(
-            <div>
-                <AppBar  position="static" color="primary">
+            <div style={{height:"50.4vw",overflowY:"scroll"}}>
+                {
+                    inputArrayField.map(textField=>{
+                        return(
+                            <RedditTextField
+                            onChange={(e)=>{this.onChange(e,textField.changeFields)}}
+                            label={textField.name}
+                            defaultValue=""
+                            variant="filled"
+                            id="reddit-input"
+                            />
+                        )
+                    })
+                }
+                {
+                    multiOptionsField.map(selectFields=>{
+                        return(
+                          <select style={{width:"95%",margin:"20px auto",height:"4vw"}}  data-test="branch-input" onChange={(e)=>{this.onChange(e,selectFields.changeFields)}} class="form-control">
+                          <option>{selectFields.name}</option>
+                          {
+                          selectFields.options.map(option=>{
+                            return(
+                              <option>{option}</option>
+                            )
+                          })
+                          }
+                          </select>
+                        )
+                      })
+                }
+                <div onClick={this.updateStudent} style={{margin:"10px"}}>
+                    <GeneralButton text="Upload&nbsp;&nbsp;Elective&nbsp;&nbsp;Subjects" icon="cloud_upload" width="15vw"/>
+                </div>
+
+                {/* <AppBar  position="static" color="primary">
                     <Toolbar> 
                         <p style={{width:"100%",fontSize:"30px",fontWeight:"500",textAlign:"center"}}>
                             Upload The Subjects for the teachers    
                         </p>
                     </Toolbar>
-                </AppBar>
-                <div style={{overflowY:"scroll",height:"570px"}}>
+                </AppBar> */}
+                {/* <div style={{overflowY:"scroll",height:"570px"}}>
                 <FormControl style={{width:"70%"}}> 
                     <TextField
                         required
@@ -263,7 +300,7 @@ class electiveManual extends Component{
                             Upload To The DataBase
                     </Button>
                     </div>
-                </div>
+                </div> */}
                 </div>
         )
     }

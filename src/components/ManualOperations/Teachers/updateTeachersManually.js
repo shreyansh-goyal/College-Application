@@ -1,54 +1,46 @@
 import React, { Component } from "react";
 import axios from "axios";
+import {RedditTextField} from "../../FormElements/GeneralInput";
+import {GeneralButton} from "../../FormElements/GeneralButton";
+import {inputArrayField} from  "./UPDATETEACHERMANUALDATA";
+import {stateData} from "./UPDATETEACHERMANUALDATA";
+const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNTcxMDM4MTUyLCJleHAiOjE1NzM2MzAxNTJ9.seaqiuz0b4teCNbP9ZA1kOb50hugbYCBul26Zy1xjv4";
+var config={
+  headers: {'Authorization':"bearer " + token}
+}
+var bodyParameters={
+  key:"value"
+}
 class AddTeachers extends Component {
-  state = {};
-  componentWillMount() {
-    console.log("hello function will be wrking in this sceneario");
-    axios
-      .get("https://bpitconnect.herokuapp.com/teachers")
-      .then(data => {
-        console.log("this is the data I want", data.data);
-        this.setState({
-          teachersdetails: data.data
-        });
-      })
-      .catch("I forgot how to get the data");
+  constructor(props)
+  {
+    super(props);
+    this.state={
+      ...stateData
+    }
   }
-  componentDidUpdate() {
-    console.log("recieve the props", this.state);
+  onChange(e,name) {
+    this.setState({ [name]: e.target.value });
   }
   findTeacher = () => {
-    var arr = this.state.teachersdetails.filter(e => {
-      return e.teacherId == this.refs.findTeacher.value;
-    });
-    if (arr.length > 0) {
-      this.setState({ updateDetails: arr[0] });
-    }
+    axios.get('http://18.190.25.34:1337/teachers/'+this.state.teacherId,config)
+    .then(data=>{
+      this.setState(
+       ...data.data[0] 
+      )
+    })
   };
   updateTeacherDetails = () => {
-    console.log(
-      `https://bpitconnect.herokuapp.com/${this.state.updateDetails.id}`
-    );
-    console.log(this.state.updateDetails);
     axios
       .put(
         `https://bpitconnect.herokuapp.com/teachers/${
-          this.state.updateDetails.id
+          this.state.teacherId
         }`,
-        this.state.updateDetails
+        this.state
       )
       .then(data => {
-        console.log(data.data);
-        this.setState({ teachersdetails: [], updateDetails: {} });
-        axios
-          .get("https://bpitconnect.herokuapp.com/teachers")
-          .then(data => {
-            console.log("this is the data I want", data.data);
-            this.setState({
-              teachersdetails: data.data
-            });
-          })
-          .catch("I forgot how to get the data");
+        console.log("I have updated the data",data);
+        alert("Changes are updated");
       })
       .catch(err => {
         console.log("this have following error", err);
@@ -57,31 +49,32 @@ class AddTeachers extends Component {
   render() {
     return (
       <div>
-        <div class="form-group input-block">
-          <label>Enter Teacher Id</label>
-          <input ref="findTeacher" type="text" list="teachers" />
-          <datalist id="teachers">
-            <option>hello</option>
-            {this.state.teachersdetails &&
-              this.state.teachersdetails.map(e => {
-                return (
-                  <option value={e.teacherId} key={e.id}>
-                    Teacher's Name : {e.teacherName}
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Teachers
-                    Id : {e.teacherId}
-                  </option>
-                );
-              })}
-          </datalist>
-        </div>
-        <div
-          style={{ display: "flex", justifyContent: "center" }}
-          class="form-group input-block"
-        >
-          <button onClick={this.findTeacher}>Find Teacher</button>
+        <RedditTextField
+        onChange={(e)=>{this.onChange(e,'teacherId')}}
+        label='Teacher Id'
+        defaultValue=""
+        variant="filled"
+        id="reddit-input"
+        />        
+        <div onClick={this.findTeacher} style={{margin:'10px auto'}} >
+        <GeneralButton text="Find&nbsp;Teacher"  icon="cloud_upload" width="10vw"/>
         </div>
         <hr />
-        <div class="form-group input-block">
+        {
+          inputArrayField.map(textField=>{
+            return(
+              <RedditTextField
+              onChange={(e)=>{this.onChange(e,textField.changeFields)}}
+              label={textField.name}
+              defaultValue=""
+              variant="filled"
+              id="reddit-input"
+              />
+            )
+          })
+        }
+        
+        {/* <div class="form-group input-block">
           <label>Teacher Id</label>
           <input
             type="text"
@@ -194,7 +187,7 @@ class AddTeachers extends Component {
             }
             class="form-control"
           />
-        </div>
+        </div> */}
         <div class="form-group input-block">
           <button className="btn btn-info" onClick={this.updateTeacherDetails}>
             Submit Teacher Details

@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import axios from "axios"
-import {RedditTextField} from "../FormElements/GeneralInput";
-import {GeneralButton} from "../FormElements/GeneralButton";
+import {RedditTextField} from "../../FormElements/GeneralInput";
+import {GeneralButton} from "../../FormElements/GeneralButton";
 import {inputArrayFields} from "./UPDATESTUDENTMANUALDATA";
 import {selectArrayFields} from "./UPDATESTUDENTMANUALDATA";
 import {naturalState} from "./UPDATESTUDENTMANUALDATA";
@@ -66,7 +66,7 @@ class AddStudents extends Component{
                 />
                 {/* BUTTON IS NOT CLICKABLE I HAD TO USE A DIV TO MAKE THE GENERAL BUTTON CLICKABLE */}
                 <div onClick={this.findStudent}>
-                <GeneralButton text="Search&nbsp;&nbsp;Student" icon="search" width="9vw"/>
+                <GeneralButton text="Search&nbsp;&nbsp;Student" icon="search" width="10vw"/>
                 </div>
                 <hr/>
                {/* 
@@ -122,6 +122,10 @@ class AddStudents extends Component{
                         )
                         })
                 }
+                <div onClick={this.updateStudent} style={{margin:"10px"}}>
+                    <GeneralButton text="Update&nbsp;&nbsp;Student" icon="cloud_upload" width="10vw"/>
+                </div>
+
                 </div>
         )
     }

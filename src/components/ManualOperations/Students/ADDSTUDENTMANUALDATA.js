@@ -38,7 +38,7 @@ export const selectArrayFields=[
     },
     {
         name:"Section",changeFields:"section",options:["A","B"]
-    },
+    }
 
 ]
 export const dateArrayField=[

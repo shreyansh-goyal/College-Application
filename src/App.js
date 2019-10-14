@@ -4,20 +4,20 @@ import Attendence from "./components/ComponentOption/Attendence";
 import { Route } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import ManualData from "./components/ManualData";
-import AddStudent from "./components/ManualOperations/addStudentManually";
-import AddTeacher from "./components/addTeachersManually";
-import UpdateStudents from "./components/ManualOperations/updateStudentsManually";
-import UpdateTeachers from "./components/updateTeachersManually";
-import DeleteTeacher from "./components/deleteteachers";
-import DeleteStudents from "./components/ManualOperations/deletestudents";
+import AddStudent from "./components/ManualOperations/Students/addStudentManually";
+import AddTeacher from "./components/ManualOperations/Teachers/addTeachersManually";
+import UpdateStudents from "./components/ManualOperations/Students/updateStudentsManually";
+import UpdateTeachers from "./components/ManualOperations/Teachers/updateTeachersManually";
+import DeleteTeacher from "./components/ManualOperations/Teachers/deleteteachers";
+import DeleteStudents from "./components/ManualOperations/Students/deletestudents";
 import AddSubject from "./components/AddSubject";
 import deleteSubject from "./components/deleteSubject";
 import attendanceConf from "./components/AttendenceIssue";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import analyticsWrapper from "./components/Analytics/AnalyticsWrapper";
-import ElectiveSubjectExcel from "./components/Elective Subjects/ElectiveSubjects"; 
-import electiveManual from "./components/Elective Subjects/ElectiveSubjectManually";
+import ElectiveSubjectExcel from "./components/ElectiveSubjects"; 
+import electiveManual from "./components/ManualOperations/Elective Subjects/ElectiveSubjectManually";
 import uploadAttendanceByTeachers from "./components/Attendance/uploadAttendanceTeachers";
 import Example from "./components/Attendance/AnalyseAttendance"
 import MainTable from "./components/FrontendTableHandling/Table";
@@ -40,7 +40,7 @@ class App extends Component {
           {label:"Analytics",to:"/analytics/upload/Analytics"}],
         teacher:[
         {label:"Upload Attendance",to:"/attendance/upload/Upload Attendence/teachers"},
-        {label:"Elective Subjects",to:"/upload/ElectiveSubjects"}
+        {label:"Elective Subjects",to:"/upload/Elective Subjects"}
       ],
         student:[
         {label:"Anaylze Attendance",to:"/attendance/upload/Analyse Attendance"}
@@ -62,8 +62,8 @@ class App extends Component {
       fieldAddSubject:["id","subjectId","subjectCode","courseId","semester","subjectName","lab","credit","isElective","isTaught","isMandatory","recommandedBook1","recommandedBook2","teacherId"],
       routeData:[{path:"/upload/:header",component:Attendence},{path:"/attendance/upload/Analyse Attendance",component:Example},
       {path:"/manualEntry/Upload Attendence",component:ManualData},{path:"/analytics/upload/Analytics",component:analyticsWrapper},
-      {path:"/attendance/upload/Upload Attendence/teachers",component:uploadAttendanceByTeachers},{path:"/excelEntry/ElectiveSubjects",component:ElectiveSubjectExcel},
-      {path:"/manualEntry/ElectiveSubjects",component:electiveManual},{path:"/manualEntry/Add Students",component:AddStudent},
+      {path:"/attendance/upload/Upload Attendence/teachers",component:uploadAttendanceByTeachers},{path:"/excelEntry/Elective Subjects",component:ElectiveSubjectExcel},
+      {path:"/manualEntry/Elective Subjects",component:electiveManual},{path:"/manualEntry/Add Students",component:AddStudent},
       {path:"/manualEntry/Update Students",component:UpdateStudents},{path:"/attendance/upload/Upload Attendence",component:attendanceConf},
       {path:"/manualEntry/Delete Students",component:DeleteStudents},{path:"/manualEntry/Add Teachers",component:AddTeacher},
       {path:"/manualEntry/Update Teachers",component:UpdateTeachers},{path:"/manualEntry/Delete Teachers",component:DeleteTeacher},
