@@ -11,16 +11,29 @@ export default class LoginPage extends Component{
       super(props);
       this.state={
         loginId:"",
-        password:""
+        password:"",
+        email:"",
+        blocked:false
       }
     }
-    login=async function(){
+    login= function(){
       console.log("called");
-      const x=await axios.post("https://bpitconnect.herokuapp.com/auth/local",{
-        identifier:this.state.loginId,
-        password:this.state.password
+       axios.post("http://18.190.25.34:1337/auth/local/register",{
+        username:this.state.loginId,
+        password:this.state.password,
+        email:this.state.email,
+        blocked:this.state.blocked
+
+      }).then(data=>{
+        console.log(data);
+        localStorage.setItem('token',data.data.jwt);
+        this.props.changeView();
       })
-      this.props.changeView()
+      .catch(err=>{
+        console.log(this.state);
+        console.log(err);
+      })
+
     }
     render()
     {
@@ -65,7 +78,7 @@ export default class LoginPage extends Component{
                   />
                 </CardContent>
                 <CardActions>
-                <Button data-test="signup-button" variant="contained" style={{display:"block",margin:"0 auto"}} color="primary" >Sign In</Button>
+                <Button data-test="signup-button" onClick={console.log(this.state)} variant="contained" style={{display:"block",margin:"0 auto"}} color="primary" >Sign In</Button>
                 </CardActions>
               </Card>
                 ):(
@@ -83,6 +96,15 @@ export default class LoginPage extends Component{
                     value={this.state.loginId}
                     onChange={(event)=>{this.setState({loginId:event.target.value})}}
                   />
+                  <TextField
+                    style={{width:"100%"}}
+                    id="filled-name"
+                    label="Email Id"
+                    margin="normal"
+                    variant="filled"
+                    value={this.state.email}
+                    onChange={(event)=>{this.setState({email:event.target.value})}}
+                  />     
                   </div>
                   <TextField
                     data-test="login-password"
@@ -93,6 +115,7 @@ export default class LoginPage extends Component{
                     variant="filled"
                     value={this.state.password}
                     onChange={(event)=>{this.setState({password:event.target.value})}}
+                    type="password"
                   />
                 </CardContent>
                 <CardActions>

@@ -11,7 +11,7 @@ import UpdateTeachers from "./components/ManualOperations/Teachers/updateTeacher
 import DeleteTeacher from "./components/ManualOperations/Teachers/deleteteachers";
 import DeleteStudents from "./components/ManualOperations/Students/deletestudents";
 import AddSubject from "./components/AddSubject";
-import deleteSubject from "./components/deleteSubject";
+import deleteSubject from "./components/ManualOperations/Elective Subjects/deleteSubject";
 import attendanceConf from "./components/AttendenceIssue";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -45,7 +45,7 @@ class App extends Component {
         student:[
         {label:"Anaylze Attendance",to:"/attendance/upload/Analyse Attendance"}
       ]},
-      role:"admin",
+      role:"teacher",
       loggedIn:true,
       signup:true,
       validationAddStudent:["libraryFine",	"rollNo","enrollmentNo","courseId",	"year","isDropped","aggregate","activeBacklogs","placed","tenPercentage",  "twelfthPercentage"],

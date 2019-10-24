@@ -4,13 +4,7 @@ import {RedditTextField} from "../../FormElements/GeneralInput";
 import {inputArrayFields} from "./ADDSTUDENTMANUALDATA";
 import {selectArrayFields} from "./ADDSTUDENTMANUALDATA";
 import {dateArrayField} from "./ADDSTUDENTMANUALDATA"
-const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTcwNzgxODgyLCJleHAiOjE1NzMzNzM4ODJ9.ptamzLKAqXBT8v-8k-eIZ0j2maGjiIqK--0iW6n5vaw";
-var config={
-  headers: {'Authorization':"bearer " + token}
-}
-var bodyParameters={
-  key:"value"
-}
+
 class AddStudents extends Component {
   constructor(props) {
     super(props);
@@ -55,9 +49,9 @@ class AddStudents extends Component {
   onChange(e,name) {
     this.setState({ [name]: e.target.value });
   }
-
   submitDetails = () => {
-    axios.post("http://18.190.25.34:1337/students",bodyParameters,config, {
+    console.log(this.state);
+    axios.post("http://18.190.25.34:1337/students", {
       ...this.state
       })
       .then(data => {
@@ -65,6 +59,7 @@ class AddStudents extends Component {
       })
       .catch(err => {
         console.log(this.state);
+        alert("error");
         console.log("this is the following error", err);
       });
   };

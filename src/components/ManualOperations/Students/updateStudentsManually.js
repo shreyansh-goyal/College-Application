@@ -6,10 +6,6 @@ import {inputArrayFields} from "./UPDATESTUDENTMANUALDATA";
 import {selectArrayFields} from "./UPDATESTUDENTMANUALDATA";
 import {naturalState} from "./UPDATESTUDENTMANUALDATA";
 import {dateArrayField} from "./UPDATESTUDENTMANUALDATA"
-const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTcwNzgxODgyLCJleHAiOjE1NzMzNzM4ODJ9.ptamzLKAqXBT8v-8k-eIZ0j2maGjiIqK--0iW6n5vaw";
-var config={
-  headers: {'Authorization':"bearer " + token}
-}
 class AddStudents extends Component{
     state={
         studentDetails:{
@@ -19,14 +15,12 @@ class AddStudents extends Component{
     onChange(e,name) {
         this.setState(
             {
-                ...this.state,
-                studentDetails:{[name]: e.target.value }
+                studentDetails:{...this.state.studentDetails,[name]: e.target.value }
         
             })}
     findStudent=()=>
     { 
-        axios.get('http://18.190.25.34:1337/students?enrollmentNo='+parseInt(this.state.studentDetails.enrollmentNo),config).then(data=>{
-        console.log(data);
+        axios.get('http://18.190.25.34:1337/students?enrollmentNo='+parseInt(this.state.studentDetails.enrollmentNo)).then(data=>{
         if(data.data[0].enrollmentNo)
         {
             this.setState({
@@ -42,10 +36,12 @@ class AddStudents extends Component{
     updateStudent=()=>
     {console.log(this.state);
         var obj=
-        axios.put("https://bpitconnect.herokuapp.com/students/"+this.state.studentDetails.id,this.state.studentDetails).then(data=>{
+        axios.put("http://18.190.25.34:1337/students/"+this.state.studentDetails.id,this.state.studentDetails).then(data=>{
             console.log("the data is updated successfully");
             this.setState({
-                studentDetails:{}
+                studentDetails:{
+                    ...naturalState
+                }
             })
             console.log(this.state);
         }).catch(err=>{
@@ -61,6 +57,7 @@ class AddStudents extends Component{
                 onChange={(e)=>{this.onChange(e,"enrollmentNo")}}
                 label="Enrollment Number"
                 defaultValue=""
+                value={this.state.studentDetails.enrollmentNo}
                 variant="filled"
                 id="reddit-input"
                 />

@@ -32,9 +32,10 @@ class analyticsWrapper extends Component {
     
     };
   }
-
+  sendLowAttendanceMail=()=>{
+    ;
+  }
   fetchRecords = () => {
-    console.log(this.state);
     if (
       this.state.semester &&
       this.state.courseId &&
@@ -43,7 +44,7 @@ class analyticsWrapper extends Component {
     ) {
       if (this.state.limit) {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?semester=" +
+          "http://18.190.25.34:1337/attendance?semester=" +
             this.state.semester +
             "&courseId=" +
             this.state.courseId +
@@ -64,7 +65,7 @@ class analyticsWrapper extends Component {
         });
       } else {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?semester=" +
+          "http://18.190.25.34:1337/attendance?semester=" +
             this.state.semester +
             "&courseId=" +
             this.state.courseId +
@@ -87,7 +88,7 @@ class analyticsWrapper extends Component {
     ) {
       if (this.state.limit) {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?semester=" +
+          "http://18.190.25.34:1337/attendance?semester=" +
             this.state.semester +
             "&courseId=" +
             this.state.courseId +
@@ -106,7 +107,7 @@ class analyticsWrapper extends Component {
         });
       } else {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?semester=" +
+          "http://18.190.25.34:1337/attendance?semester=" +
             this.state.semester +
             "&courseId=" +
             this.state.courseId +
@@ -125,7 +126,7 @@ class analyticsWrapper extends Component {
     } else if (this.state.semester && this.state.courseId) {
       if (this.state.limit) {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?semester=" +
+          "http://18.190.25.34:1337/attendance?semester=" +
             this.state.semester +
             "&courseId=" +
             this.state.courseId +
@@ -142,7 +143,7 @@ class analyticsWrapper extends Component {
         });
       } else {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?semester=" +
+          "http://18.190.25.34:1337/attendance?semester=" +
             this.state.semester +
             "&courseId=" +
             this.state.courseId
@@ -157,7 +158,7 @@ class analyticsWrapper extends Component {
     } else if (this.state.semester) {
       if (this.state.limit) {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?semester=" +
+          "http://18.190.25.34:1337/attendance?semester=" +
             this.state.semester +
             "?_limit=" +
             this.state.limit +
@@ -172,10 +173,11 @@ class analyticsWrapper extends Component {
         });
       } else {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?semester=" +
+          "http://18.190.25.34:1337/attendance?semester=" +
             this.state.semester
         ).then(response => {
           response.json().then(data => {
+            console.log(data);
             this.setState({
               data
             });
@@ -186,7 +188,7 @@ class analyticsWrapper extends Component {
     } else if (this.state.courseId) {
       if (this.state.limit) {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?courseId=" +
+          "http://18.190.25.34:1337/attendance?courseId=" +
             this.state.courseId +
             "&_limit=" +
             this.state.limit +
@@ -201,7 +203,7 @@ class analyticsWrapper extends Component {
         });
       } else {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?courseId=" +
+          "http://18.190.25.34:1337/attendance?courseId=" +
             this.state.courseId
         ).then(response => {
           response.json().then(data => {
@@ -214,7 +216,7 @@ class analyticsWrapper extends Component {
     } else if (this.state.section) {
       if (this.state.limit) {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?group=" +
+          "http://18.190.25.34:1337/attendance?group=" +
             this.state.group +
             "&_limit=" +
             this.state.limit +
@@ -229,7 +231,7 @@ class analyticsWrapper extends Component {
         });
       } else {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?group=" +
+          "http://18.190.25.34:1337/attendance?group=" +
             this.state.group
         ).then(response => {
           response.json().then(data => {
@@ -242,7 +244,7 @@ class analyticsWrapper extends Component {
     } else if (this.state.group) {
       if (this.state.limit) {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?section=" +
+          "http://18.190.25.34:1337/attendance?section=" +
             this.state.section +
             "&_limit=" +
             this.state.limit +
@@ -257,7 +259,7 @@ class analyticsWrapper extends Component {
         });
       } else {
         fetch(
-          "https://bpitconnect.herokuapp.com/attendance?section=" +
+          "http://18.190.25.34:1337/attendance?section=" +
             this.state.section
         ).then(response => {
           response.json().then(data => {
@@ -321,16 +323,20 @@ class analyticsWrapper extends Component {
     var flag=0;
     for(let i in this.state.message)
     {
-      if(this.state.message[i]==e)
+      if(this.state.message[i].enrollment_no==e)
       {
         flag=1;
       }
     }
     if(flag==0)
     {
-      this.setState({
-        message:[...this.state.message,e]
+      var a=this.state.data.filter(element=>{
+        return element.enrollment_no==e;
       })
+      this.setState({
+        message:[...this.state.message,...a]
+      })
+      console.log(this.state.message);
     }
     else{
       var a = this.state.message.filter(element=>{
@@ -355,7 +361,7 @@ class analyticsWrapper extends Component {
   }
   render() {
     return (
-      <div>
+      <div style={{height:"50.4vw",overflowY:"scroll"}}>
         <div style={{     display: 'flex',
       flexWrap: 'wrap',}}>
 
@@ -366,7 +372,7 @@ class analyticsWrapper extends Component {
       flexWrap: 'wrap',}} autoComplete="off">
 <span style={{margin:"auto 30px",fontWeight:"800",fontSize:"20px",color:"#f50057",border:"2px solid #f50057",padding:"10px",borderRadius:"10px"}}>ANALYTICS</span>
 <Button  variant="contained" color="secondary" style={{margin:"0 6px",fontWeight:"800",fontSize:"11px"}}>SMS</Button>
-<Button variant="contained" color="secondary" style={{margin:"0 6px",fontWeight:"800",fontSize:"11px"}}>Gmail</Button>
+<Button variant="contained" color="secondary" style={{margin:"0 6px",fontWeight:"800",fontSize:"11px"}} onClick={this.sendLowAttendanceMail}>Gmail</Button>
 <Button variant="contained" color="secondary" onClick={this.Download} style={{margin:"0 6px",fontWeight:"800",fontSize:"11px"}}>Download</Button>
 <TextField
 style={{margin:"auto 10px",width:"80px"}}
@@ -416,12 +422,12 @@ name="limit"
       value={this.state.branch}
       onChange={this.handleChange}
     >
-      <MenuItem value={"CSE"}>CSE</MenuItem>
-      <MenuItem value={"IT"}>IT</MenuItem>
-      <MenuItem value={"EEE"}>EEE</MenuItem>
-      <MenuItem value={"ECE"}>ECE</MenuItem>
-      <MenuItem value={"MBA"}>MBA</MenuItem>
-      <MenuItem value={"BBA"}>BBA</MenuItem>
+      <MenuItem value={901}>CSE</MenuItem>
+      <MenuItem value={902}>IT</MenuItem>
+      <MenuItem value={911}>EEE</MenuItem>
+      <MenuItem value={912}>ECE</MenuItem>
+      <MenuItem value={922}>MBA</MenuItem>
+      <MenuItem value={921}>BBA</MenuItem>
     </Select>
 </FormControl>
 <FormControl style={{width:"100px",margin:"10px"}}>
@@ -435,8 +441,8 @@ name="limit"
       }}
       onChange={this.handleChange}
     >
-      <MenuItem value={"A"}>A</MenuItem>
-      <MenuItem value={"B"}>B</MenuItem>
+      <MenuItem value={1}>A</MenuItem>
+      <MenuItem value={2}>B</MenuItem>
       <MenuItem value={null}>No Section</MenuItem>
     </Select>
 </FormControl>
@@ -472,7 +478,7 @@ fetch
 <TableCell style={{width:"100%",fontSize:"20px"}} align="right">Semester</TableCell>
 <TableCell style={{width:"100%",fontSize:"20px"}} align="right">Section</TableCell>
 <TableCell style={{width:"100%",fontSize:"20px"}} align="right">Group</TableCell>
-<TableCell style={{width:"100%",fontSize:"20px"}} align="right">Presen</TableCell>
+<TableCell style={{width:"100%",fontSize:"20px"}} align="right">Present</TableCell>
 <TableCell style={{width:"100%",fontSize:"20px"}} align="right">Absent</TableCell>
 <TableCell style={{width:"100%",fontSize:"20px"}} align="right">Select</TableCell>
 </TableRow>
@@ -489,7 +495,7 @@ fetch
 <TableCell  style={{fontSize:"10px"}} align="right">{row.group}</TableCell>
 <TableCell  style={{fontSize:"10px"}} align="right">{row.totalPresent}</TableCell>
 <TableCell  style={{fontSize:"10px"}} align="right">{row.totalAbsent}</TableCell>
-<TableCell  style={{fontSize:"10px"}} align="right"><input type="checkbox" onClick={()=>{this.addToSendMessageArray(row.enrollment_no)}}></input></TableCell>
+<TableCell  style={{fontSize:"10px"}} align="right"><input type="checkbox" onClick={()=>{console.log(this.state);this.addToSendMessageArray(row.enrollment_no)}}></input></TableCell>
 </TableRow>
 ))
 }

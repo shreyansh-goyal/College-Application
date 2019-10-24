@@ -13,28 +13,35 @@ class DeleteTeachers extends Component {
     this.setState({ [name]: e.target.value });
   }
   deleteTeacher = () => {
-    console.log('hello')
     axios
       .get(
         "http://18.190.25.34:1337/teachers?teacherId=" +
           this.state.teacherId
       )
       .then(data => {
-        console.log("hello this is the data",data);
-        console.log(data.data);
-        axios
+        if(data.data.length)
+        {
+          console.log(data.data[0])
+          axios
           .delete(
-            "http://18.190.25.34:1337/teachers/" + data.data[0].id
+            "http://18.190.25.34:1337/teachers/"+data.data[0].id
           )
           .then(data => {
             console.log("The teacher is deleted");
             alert("the given entry is deleted");
           })
           .catch(err => {
+            alert("error");
             console.log("some error is occured", err);
           });
+        }
+        else
+        {
+          alert("Not Found");
+        }
       })
       .catch(err => {
+        alert("Error")
         console.log("some error is occured", err);
       });
   };

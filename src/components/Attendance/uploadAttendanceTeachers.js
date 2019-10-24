@@ -13,6 +13,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Switch from '@material-ui/core/Switch';
+
+//subject post was not working
 class uploadAttendanceByTeachers extends Component{
     constructor(props)
     {
@@ -30,11 +32,15 @@ class uploadAttendanceByTeachers extends Component{
     fetchData()
     {
         console.log("hello shreyansh in the function");
-        fetch("https://bpitconnect.herokuapp.com/teacherbatches?teacherId=123").then(data=>{
+        fetch("http://18.190.25.34:1337/teacherbatches?teacherId=123").then(data=>{
             data.json().then((data=>{
                 console.log("first fetch data",data);
                 this.setState({
-                    subjectMetadata:data
+                    subjectMetadata:[
+                        ...this.state.subjectMetadata,
+                        {data}
+                    ]
+
                 })
                 this.anotherFetch()
             }))
@@ -42,7 +48,7 @@ class uploadAttendanceByTeachers extends Component{
     }
     anotherFetch(){
         this.state.subjectMetadata.forEach(e=>{
-            fetch("https://bpitconnect.herokuapp.com/subjects?subjectId="+e.subjectId).then(data=>{
+            fetch("http://18.190.25.34:1337/subjects?subjectId="+e.subjectId).then(data=>{
                 data.json().then(data=>{
                     console.log("second fetch",data)
 
@@ -57,7 +63,7 @@ class uploadAttendanceByTeachers extends Component{
     }
     takeAttendance(data)
     {
-        fetch("https://bpitconnect.herokuapp.com/attendance?courseId="+data.courseId)
+        fetch("http://18.190.25.34:1337/attendance?courseId="+data.courseId)
         .then(data=>{
             data.json().then(data=>{
                 console.log(data);
@@ -94,7 +100,7 @@ class uploadAttendanceByTeachers extends Component{
             studentsAttendance:arr
         })
 
-        fetch("https://bpitconnect.herokuapp.com/attendance/"+this.state.studentsAttendance[0].id,{
+        fetch("http://18.190.25.34:1337/attendance/"+this.state.studentsAttendance[0].id,{
             method: 'PUT',
             mode: 'cors', 
             cache: 'no-cache', 

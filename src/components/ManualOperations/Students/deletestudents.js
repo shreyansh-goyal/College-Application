@@ -15,12 +15,10 @@ class DeleteStudents extends Component {
   }
 
   deleteStudent = () => {
-    console.log("hello I am shreyansh");
     axios.delete(
-            "https://bpitconnect.herokuapp.com/students/" +this.state.studentId
+            "http://18.190.25.34:1337/students/" +this.state.studentId
           )
           .then(data => {
-            console.log("The  is deleted",data);
             alert("the given entry is deleted");
           })
           .catch(err => {

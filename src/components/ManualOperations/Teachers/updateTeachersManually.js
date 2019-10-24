@@ -4,36 +4,34 @@ import {RedditTextField} from "../../FormElements/GeneralInput";
 import {GeneralButton} from "../../FormElements/GeneralButton";
 import {inputArrayField} from  "./UPDATETEACHERMANUALDATA";
 import {stateData} from "./UPDATETEACHERMANUALDATA";
-const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNTcxMDM4MTUyLCJleHAiOjE1NzM2MzAxNTJ9.seaqiuz0b4teCNbP9ZA1kOb50hugbYCBul26Zy1xjv4";
-var config={
-  headers: {'Authorization':"bearer " + token}
-}
-var bodyParameters={
-  key:"value"
-}
 class AddTeachers extends Component {
   constructor(props)
   {
     super(props);
     this.state={
-      ...stateData
+     ...stateData
     }
   }
   onChange(e,name) {
     this.setState({ [name]: e.target.value });
   }
   findTeacher = () => {
-    axios.get('http://18.190.25.34:1337/teachers/'+this.state.teacherId,config)
+    axios.get('http://18.190.25.34:1337/teachers?teacherId='+this.state.teacherId)
     .then(data=>{
+      console.log(data.data);
       this.setState(
-       ...data.data[0] 
+        {
+          ...data.data[0]
+        }
       )
     })
   };
   updateTeacherDetails = () => {
+    console.log(`http://18.190.25.34:1337/teachers/${this.state.id}`);
+    console.log(this.state);
     axios
       .put(
-        `https://bpitconnect.herokuapp.com/teachers/${
+        `http://18.190.25.34:1337/teachers/${
           this.state.teacherId
         }`,
         this.state
@@ -52,7 +50,8 @@ class AddTeachers extends Component {
         <RedditTextField
         onChange={(e)=>{this.onChange(e,'teacherId')}}
         label='Teacher Id'
-        defaultValue=""
+        value={this.state.teacherId}
+        defaultValue={this.state.teacherId}
         variant="filled"
         id="reddit-input"
         />        
@@ -64,9 +63,10 @@ class AddTeachers extends Component {
           inputArrayField.map(textField=>{
             return(
               <RedditTextField
-              onChange={(e)=>{this.onChange(e,textField.changeFields)}}
+              onChange={(e)=>{this.onChange(e,textField.changeField)}}
               label={textField.name}
-              defaultValue=""
+              defaultValue={this.state.teacherId}
+              value={this.state[textField.changeField]}
               variant="filled"
               id="reddit-input"
               />

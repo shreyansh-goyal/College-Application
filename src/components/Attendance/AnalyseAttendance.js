@@ -9,6 +9,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import axios from "axios";
 const data = [
   { name: 'Group A', value: 400}
 ];
@@ -27,9 +28,8 @@ export default class Example extends PureComponent {
   }
   fetchAttendance=()=>{
       console.log("hello");
-      fetch("https://bpitconnect.herokuapp.com/attendance?enrollment_no=1")
+      axios.get("http://18.190.25.34:1337/?enrollment_no=1")
       .then(data=>{
-          data.json().then(data=>{
               console.log(data,"hello this is the main data")
               var arr=[]
               for(let i in data)
@@ -52,7 +52,7 @@ export default class Example extends PureComponent {
             })
             console.log(this.state.data);
             })
-      })
+
       .catch(err=>{
           console.log(err);
       })

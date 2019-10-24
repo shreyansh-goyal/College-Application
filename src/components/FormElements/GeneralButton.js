@@ -6,6 +6,7 @@ import React from "react";
  * @param {text,icon,width} props
  * This button will recieve the text and the icon to show and then will return the the constructed button 
  */
+
 export function GeneralButton(props){
 return(
     <Button

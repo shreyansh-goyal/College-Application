@@ -1,12 +1,4 @@
 import React,{Component} from "react";
-import TextField from '@material-ui/core/TextField';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Button from '@material-ui/core/Button';
 import {inputArrayField} from "./ELECTIVESUBJECTSMANUALDATA";
 import {RedditTextField} from '../../FormElements/GeneralInput';
 import {multiOptionsField} from "./ELECTIVESUBJECTSMANUALDATA";
@@ -30,10 +22,14 @@ class electiveManual extends Component{
             recommandedBook2:null,
             teacherId:null
         }
-    
+    }
+    onChange(e,name) {
+        console.log(e);
+        this.setState({ [name]: e.target.value });
     }
     uploadData=()=>{
-        fetch("https://bpitconnect.herokuapp.com/electivesubjects",{
+        console.log(this.state);
+        fetch("http://18.190.25.34:1337/subjects",{
                 method: 'POST',
                 mode: 'cors', 
                 cache: 'no-cache', 
@@ -52,73 +48,73 @@ class electiveManual extends Component{
                 console.log(err);
             })
         }
-    updateState(e,updateArgument)
-    {
-        console.log(e,updateArgument);
-        if(updateArgument=="semester")
-        {
-            console.log("In the semester");
-            switch(e)
-            {
-                case 1:{
-                    this.setState({
-                        semester:1
-                    })
-                    break;
-                }
-                case 2:{
-                    this.setState({
-                        semester:2
-                    })
-                    break;
-                }
-                case 3:{
-                    this.setState({
-                        semester:3
-                    })
-                    break;
-                }
-                case 4:{
-                    this.setState({
-                        semester:4
-                    })
-                    break;
-                }
-                case 5:{
-                    this.setState({
-                        semester:5
-                    })
-                    break;
-                }
-                case 6:{
-                    this.setState({
-                        semester:6
-                    })
-                    break;
-                }
-                case 7:{
-                    this.setState({
-                        semester:7
-                    })
-                    break;
-                }
-                case 8:{
-                    this.setState({
-                        semester:8
-                    })
-                    break;
-                }
-            }
+    // updateState(e,updateArgument)
+    // {
+    //     console.log(e,updateArgument);
+    //     if(updateArgument=="semester")
+    //     {
+    //         console.log("In the semester");
+    //         switch(e)
+    //         {
+    //             case 1:{
+    //                 this.setState({
+    //                     semester:1
+    //                 })
+    //                 break;
+    //             }
+    //             case 2:{
+    //                 this.setState({
+    //                     semester:2
+    //                 })
+    //                 break;
+    //             }
+    //             case 3:{
+    //                 this.setState({
+    //                     semester:3
+    //                 })
+    //                 break;
+    //             }
+    //             case 4:{
+    //                 this.setState({
+    //                     semester:4
+    //                 })
+    //                 break;
+    //             }
+    //             case 5:{
+    //                 this.setState({
+    //                     semester:5
+    //                 })
+    //                 break;
+    //             }
+    //             case 6:{
+    //                 this.setState({
+    //                     semester:6
+    //                 })
+    //                 break;
+    //             }
+    //             case 7:{
+    //                 this.setState({
+    //                     semester:7
+    //                 })
+    //                 break;
+    //             }
+    //             case 8:{
+    //                 this.setState({
+    //                     semester:8
+    //                 })
+    //                 break;
+    //             }
+    //         }
 
-        }
-        else
-        {
-            this.setState({
-                [updateArgument]:e.target.value
-            })
-        }
-        console.log(this.state);
-    }
+    //     }
+    //     else
+    //     {
+    //         this.setState({
+    //             [updateArgument]:e.target.value
+    //         })
+    //     }
+    //     console.log(this.state);
+    // }
 
     render()
     {
@@ -128,7 +124,7 @@ class electiveManual extends Component{
                     inputArrayField.map(textField=>{
                         return(
                             <RedditTextField
-                            onChange={(e)=>{this.onChange(e,textField.changeFields)}}
+                            onChange={(e)=>{this.onChange(e,textField.changeField)}}
                             label={textField.name}
                             defaultValue=""
                             variant="filled"
@@ -140,7 +136,7 @@ class electiveManual extends Component{
                 {
                     multiOptionsField.map(selectFields=>{
                         return(
-                          <select style={{width:"95%",margin:"20px auto",height:"4vw"}}  data-test="branch-input" onChange={(e)=>{this.onChange(e,selectFields.changeFields)}} class="form-control">
+                          <select style={{width:"95%",margin:"20px auto",height:"4vw"}}  data-test="branch-input" onChange={(e)=>{this.onChange(e,selectFields.changeField)}} class="form-control">
                           <option>{selectFields.name}</option>
                           {
                           selectFields.options.map(option=>{
@@ -153,7 +149,7 @@ class electiveManual extends Component{
                         )
                       })
                 }
-                <div onClick={this.updateStudent} style={{margin:"10px"}}>
+                <div onClick={this.uploadData} style={{margin:"10px"}}>
                     <GeneralButton text="Upload&nbsp;&nbsp;Elective&nbsp;&nbsp;Subjects" icon="cloud_upload" width="15vw"/>
                 </div>
 

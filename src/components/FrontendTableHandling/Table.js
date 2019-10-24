@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';    
 import Footer from "../Footer/footer"
-import Button from '@material-ui/core/Button';
+import {GeneralButton} from "../FormElements/GeneralButton"
 class MainTable extends Component{
     constructor(props)
     {
@@ -21,7 +21,8 @@ class MainTable extends Component{
     }
     postData=()=>
     {
-        fetch("https://bpitconnect.herokuapp.com/"+this.props.api,{
+        console.log(this.props.api);
+        fetch("http://18.190.25.34:1337"+this.props.api+"/all",{
             method: this.props.method,
             mode: 'cors', 
             cache: 'no-cache', 
@@ -34,8 +35,13 @@ class MainTable extends Component{
             referrer: 'no-referrer', 
             body: JSON.stringify(this.state.studentData),
         }).then(data=>{
+            console.log(data);
+            console.log("hello");
             data.json().then(data=>{
-                alert("Congratulations! data is uploaded");
+                console.log(data);
+                console.log("hello2");
+            }).catch(err=>{
+                console.log(err);
             })
         })
         .catch(err=>{
@@ -44,6 +50,7 @@ class MainTable extends Component{
     }
     readExcelRows=(excelData)=>
     {
+        console.log(excelData);
         if(this.state.validated==false)
         {
             this.setState({
@@ -54,14 +61,17 @@ class MainTable extends Component{
         {
             for(let m of this.props.validation)
             {
-                if(!parseInt(i[m]))
+                if(i[m]!=0)
                 {
-                    var a=m+" should be a Integer";
-                    this.setState({
-                        message:a,
-                        validated:false
-                    })
-
+                    if(!parseInt(i[m]))
+                    {
+                        var a=m+" should be a Integer";
+                        this.setState({
+                            message:a,
+                            validated:false
+                        })
+    
+                    }
                 }
             }
         }
@@ -112,9 +122,9 @@ class MainTable extends Component{
                             </TableBody>
                             </Table>
                         </Paper>
-                        <Button  onClick={this.postData} variant="contained"  style={{width:"95%",fontSize:"15px",fontWeight:"500",fontFamily:"Times New Roman",margin:"10px 0"}}color="primary" >
-                                    Upload Data
-                        </Button>
+                        <div  onClick={this.postData} style={{margin:"20px auto"}}>
+                            <GeneralButton text="Upload&nbsp;&nbsp;Data" icon="cloud_upload" width="10vw"/>
+                        </div>
                     </div>
                     ):(
                         <div onClick={this.postData} style={{margin:0,overflow:"hidden"}}>

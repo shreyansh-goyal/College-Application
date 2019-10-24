@@ -19,7 +19,7 @@ class AddTeachers extends Component {
   submitDetails = () => {
     console.log("hello I am shreyansh goyal");
     axios
-      .post(`https://bpitconnect.herokuapp.com/teachers`, this.state)
+      .post(`http://18.190.25.34:1337/teachers`, this.state)
       .then(data => {
         console.log("post request is successful");
         alert("Teacher is added successfully");
