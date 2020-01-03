@@ -8,7 +8,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';    
 import Footer from "../Footer/footer"
-import {GeneralButton} from "../FormElements/GeneralButton"
+import {GeneralButton} from "../FormElements/GeneralButton";
+import axios from "axios";
+import backendConfig from "../../config/backendConnectivity";
 class MainTable extends Component{
     constructor(props)
     {
@@ -21,36 +23,23 @@ class MainTable extends Component{
     }
     postData=()=>
     {
-        console.log(this.props.api);
-        fetch("http://18.190.25.34:1337"+this.props.api+"/all",{
-            method: this.props.method,
-            mode: 'cors', 
-            cache: 'no-cache', 
-            credentials: 'same-origin', 
-            headers: {
-                'Content-Type': 'application/json',
-                
-            },
-            redirect: 'follow', 
-            referrer: 'no-referrer', 
-            body: JSON.stringify(this.state.studentData),
-        }).then(data=>{
-            console.log(data);
-            console.log("hello");
-            data.json().then(data=>{
-                console.log(data);
-                console.log("hello2");
-            }).catch(err=>{
-                console.log(err);
-            })
+        let promises=[];
+        alert("Wait for the procedure it may take some seconds");
+        for(let i=0;i<this.state.studentData.length;i++)
+        {
+            promises.push(axios.post('http://localhost:1337/'+this.props.api.slice(1),this.state.studentData[i]));
+        }
+        axios.all(promises)
+        .then(responseArray=>{
+            alert("Uploaded the data successfully");
         })
         .catch(err=>{
-            console.log(err);
+            console.log("there is some error",err);
+            alert("Failed to upload the data");
         })
     }
     readExcelRows=(excelData)=>
     {
-        console.log(excelData);
         if(this.state.validated==false)
         {
             this.setState({
@@ -59,6 +48,16 @@ class MainTable extends Component{
         }
         for(let i of  excelData)
         {
+            if(i.dob!=undefined)
+            {
+                
+                i.dob=i.dob.slice(1,i.dob.length-1);
+            }
+            if(i.joiningDate!=undefined)
+            {
+                i.joiningDate=i.joiningDate.slice(1,i.joiningDate.length-1);
+            }
+
             for(let m of this.props.validation)
             {
                 if(i[m]!=0)
@@ -78,6 +77,7 @@ class MainTable extends Component{
         this.setState({
             studentData:excelData
         })
+        console.log(this.state);
     }
     render()
     {

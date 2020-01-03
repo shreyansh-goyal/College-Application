@@ -1,9 +1,9 @@
 export const inputArrayField=[
-    {changeField:'teacherId',name:'Teacher Id'},
-    {changeField:'teacherName',name:'Teacher Name'},
-    {changeField:'teacherPhone',name:'Teacher Phone'},
-    {changeField:'teacherEmail',name:'Teacher Email'},
-    {changeField:'officialEmailId',name:'Official Email Id'}
+    {changeFields:'teacherId',name:'Teacher Id'},
+    {changeFields:'teacherName',name:'Teacher Name'},
+    {changeFields:'teacherPhone',name:'Teacher Phone'},
+    {changeFields:'teacherEmail',name:'Teacher Email'},
+    {changeFields:'officialEmailId',name:'Official Email Id'}
 ]
 export const stateData={
     teacherId:'',
@@ -14,5 +14,5 @@ export const stateData={
     joiningDate:''
 }
 export const dateData=[
-    {changeField:'joiningDate',name:'Joining Date'}
+    {changeFields:'joiningDate',name:'Joining Date'}
 ]

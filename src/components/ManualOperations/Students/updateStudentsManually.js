@@ -5,7 +5,8 @@ import {GeneralButton} from "../../FormElements/GeneralButton";
 import {inputArrayFields} from "./UPDATESTUDENTMANUALDATA";
 import {selectArrayFields} from "./UPDATESTUDENTMANUALDATA";
 import {naturalState} from "./UPDATESTUDENTMANUALDATA";
-import {dateArrayField} from "./UPDATESTUDENTMANUALDATA"
+import {dateArrayField} from "./UPDATESTUDENTMANUALDATA";
+import backendField from "../../../config/backendConnectivity";
 class AddStudents extends Component{
     state={
         studentDetails:{
@@ -13,6 +14,13 @@ class AddStudents extends Component{
         }
     };
     onChange(e,name) {
+        if(name=="dob")
+        {
+            this.setState({
+                studentDetails:{...this.state.studentDetails,[name]:e.target.value.slice(0,10)}
+            })
+        }
+        else
         this.setState(
             {
                 studentDetails:{...this.state.studentDetails,[name]: e.target.value }
@@ -20,7 +28,7 @@ class AddStudents extends Component{
             })}
     findStudent=()=>
     { 
-        axios.get('http://18.190.25.34:1337/students?enrollmentNo='+parseInt(this.state.studentDetails.enrollmentNo)).then(data=>{
+        axios.get(backendField.baseUrl+'/students?enrollmentNo='+parseInt(this.state.studentDetails.enrollmentNo)).then(data=>{
         if(data.data[0].enrollmentNo)
         {
             this.setState({
@@ -35,9 +43,40 @@ class AddStudents extends Component{
     }
     updateStudent=()=>
     {console.log(this.state);
-        var obj=
-        axios.put("http://18.190.25.34:1337/students/"+this.state.studentDetails.id,this.state.studentDetails).then(data=>{
+        var obj={
+            ...this.state.studentDetails.enrollmentNo,
+            ...this.state.studentDetails.section,
+            ...this.state.studentDetails.rollNo,
+            ...this.state.studentDetails.enrollmentNo,
+            ...this.state.studentDetails.phoneNo,
+            ...this.state.studentDetails.emailId,
+            ...this.state.studentDetails.fatherName,
+            ...this.state.studentDetails.fatherPhoneNo,
+            ...this.state.studentDetails.fatherEmailId,
+            ...this.state.studentDetails.motherName,
+            ...this.state.studentDetails.gender,
+            ...this.state.studentDetails.dob,
+            ...this.state.studentDetails.aggregate,
+            ...this.state.studentDetails.activeBacklogs,
+            ...this.state.studentDetails.placed,
+            ...this.state.studentDetails.companyName,
+            ...this.state.studentDetails.tenPercentage,
+            ...this.state.studentDetails.twelfthPercentage,
+            ...this.state.studentDetails.diploma,
+            ...this.state.studentDetails.gap,
+            ...this.state.studentDetails.enteranceRank,
+            ...this.state.studentDetails.resumeUrl,
+            ...this.state.studentDetails.blockedFromDrive,
+            ...this.state.studentDetails.libraryId,
+            ...this.state.studentDetails.libraryFine,
+            ...this.state.studentDetails.branch,
+            ...this.state.studentDetails.year,
+            ...this.state.studentDetails.group,
+            ...this.state.studentDetails.semester
+        }
+        axios.put(backendField.baseUrl+"/students/"+this.state.studentDetails.id,obj).then(data=>{
             console.log("the data is updated successfully");
+            console.log(data);
             this.setState({
                 studentDetails:{
                     ...naturalState

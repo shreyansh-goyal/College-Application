@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import {RedditTextField} from "../../FormElements/GeneralInput";
 import {GeneralButton} from "../../FormElements/GeneralButton";
-
+import backendConfig from "../../../config/backendConnectivity";
 class deleteSubject extends Component {
   constructor(props)
   {
@@ -17,7 +17,7 @@ class deleteSubject extends Component {
   deleteSubject = () => {
     axios
       .get(
-        "http://18.190.25.34:1337/subjects?subjectId=" +
+        backendConfig.baseUrl+"/subjects?subjectId="+
           this.state.subjectId
       )
       .then(data => {
@@ -25,7 +25,7 @@ class deleteSubject extends Component {
         if(data.data.length)
         {
           axios
-          .delete("http://18.190.25.34:1337/subjects/" + data.data[0].id)
+          .delete(backendConfig.baseUrl+"/subjects/" + data.data[0].id)
           .then(data => {
             alert("success");
           });

@@ -3,6 +3,7 @@ import axios from "axios";
 import {inputArrayField} from './DELETETEACHERSMANUALDATA';
 import {RedditTextField} from '../../FormElements/GeneralInput';
 import {GeneralButton} from "../../FormElements/GeneralButton";
+import backendConfig from "../../../config/backendConnectivity";
 class DeleteTeachers extends Component {
   constructor(props)
   {
@@ -15,7 +16,7 @@ class DeleteTeachers extends Component {
   deleteTeacher = () => {
     axios
       .get(
-        "http://18.190.25.34:1337/teachers?teacherId=" +
+        backendConfig.baseUrl+"/teachers?teacherId=" +
           this.state.teacherId
       )
       .then(data => {
@@ -24,10 +25,9 @@ class DeleteTeachers extends Component {
           console.log(data.data[0])
           axios
           .delete(
-            "http://18.190.25.34:1337/teachers/"+data.data[0].id
+            backendConfig.baseUrl+"/teachers/"+data.data[0].id
           )
           .then(data => {
-            console.log("The teacher is deleted");
             alert("the given entry is deleted");
           })
           .catch(err => {

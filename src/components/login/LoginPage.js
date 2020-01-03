@@ -1,10 +1,12 @@
-import React,{Component} from "react";
+import React,{Component,useState} from "react";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import axios from "axios";
+import {LoginContext} from "../../App"
+
 export default class LoginPage extends Component{
     constructor(props)
     {
@@ -15,19 +17,28 @@ export default class LoginPage extends Component{
         email:"",
         blocked:false
       }
+      
     }
-    login= function(){
-      console.log("called");
-       axios.post("http://18.190.25.34:1337/auth/local/register",{
-        username:this.state.loginId,
+    login=(context)=>{
+       axios.post("http://localhost:1337/auth/local",{
+        identifier:this.state.email,
         password:this.state.password,
-        email:this.state.email,
-        blocked:this.state.blocked
-
       }).then(data=>{
-        console.log(data);
         localStorage.setItem('token',data.data.jwt);
-        this.props.changeView();
+        console.log(data.data.jwt);
+        localStorage.setItem('id',data.data.username);
+        if(data.data.student)
+        { 
+          context.changeState("student",data.data.username)
+        }
+        else if(data.data.teacher)
+        {
+          context.changeState("teacher",data.data.username);
+        }
+        else{
+          context.changeState("admin",data.data.username);
+        }
+        //this.props.changeView();
       })
       .catch(err=>{
         console.log(this.state);
@@ -87,16 +98,6 @@ export default class LoginPage extends Component{
                   <p data-test="login-heading" style={{textAlign:"center",fontWeight:"500",fontSize:"20px"}}>Login Here</p>
                   <div  data-test="login-loginId">
                   <TextField
-                    data-test="login-username"
-                    style={{width:"100%"}}
-                    id="filled-name"
-                    label="Login Id"
-                    margin="normal"
-                    variant="filled"
-                    value={this.state.loginId}
-                    onChange={(event)=>{this.setState({loginId:event.target.value})}}
-                  />
-                  <TextField
                     style={{width:"100%"}}
                     id="filled-name"
                     label="Email Id"
@@ -119,13 +120,17 @@ export default class LoginPage extends Component{
                   />
                 </CardContent>
                 <CardActions>
-                <Button variant="contained" data-test="login-button"  onClick={this.login.bind(this)} style={{display:"block",margin:"0 auto"}} color="primary" >Login</Button>
+                <LoginContext.Consumer>
+                  {(context)=>(
+                <Button variant="contained" data-test="login-button"  onClick={()=>{this.login(context)}} style={{display:"block",margin:"0 auto"}} color="primary" >Login</Button>
+                )}
+                </LoginContext.Consumer>
+  
                 </CardActions>
               </Card>  
               )
             }
             </div>
-            {/* <img src="http://www.bpitindia.com/images/slide-2.jpg" style={{width:"100%",height:"550px"}}></img> */}
           </div>
         )
         

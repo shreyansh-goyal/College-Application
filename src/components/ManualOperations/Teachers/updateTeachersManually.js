@@ -4,6 +4,7 @@ import {RedditTextField} from "../../FormElements/GeneralInput";
 import {GeneralButton} from "../../FormElements/GeneralButton";
 import {inputArrayField} from  "./UPDATETEACHERMANUALDATA";
 import {stateData} from "./UPDATETEACHERMANUALDATA";
+import backField from "../../../config/backendConnectivity";
 class AddTeachers extends Component {
   constructor(props)
   {
@@ -16,29 +17,44 @@ class AddTeachers extends Component {
     this.setState({ [name]: e.target.value });
   }
   findTeacher = () => {
-    axios.get('http://18.190.25.34:1337/teachers?teacherId='+this.state.teacherId)
+   
+    axios.get(backField.baseUrl+'/teachers?teacherId='+this.state.teacherId)
     .then(data=>{
-      console.log(data.data);
-      this.setState(
-        {
-          ...data.data[0]
-        }
-      )
+      console.log(data);
+      if(data.data.length>0)
+      {
+        console.log("I am in the data.length>1");
+        this.setState(
+          {
+            ...data.data[0],
+          }
+        )
+      }
+      console.log(this.state);
     })
   };
   updateTeacherDetails = () => {
-    console.log(`http://18.190.25.34:1337/teachers/${this.state.id}`);
-    console.log(this.state);
+    let obj={
+      teacherId:this.state.teacherId,
+      teacherName:this.state.teacherName,
+      teacherPhone:this.state.teacherPhone,
+      teacherEmail:this.state.teacherEmail,
+      officialEmailId:this.state.officialEmailId,
+      joiningDate:this.state.joiningDate
+    }
+
     axios
       .put(
-        `http://18.190.25.34:1337/teachers/${
-          this.state.teacherId
+        `${backField.baseUrl}/teachers/${
+          this.state.id
         }`,
-        this.state
+        obj
       )
       .then(data => {
-        console.log("I have updated the data",data);
-        alert("Changes are updated");
+          alert("done with the update");
+          this.setState({
+            ...stateData
+          })
       })
       .catch(err => {
         console.log("this have following error", err);

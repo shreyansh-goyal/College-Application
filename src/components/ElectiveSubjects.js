@@ -9,6 +9,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import BackendConfig from "../config/backendConnectivity";
+import Axios from 'axios';
+import backendConnectivity from '../config/backendConnectivity';
 class ElectiveSubjectExcel extends Component{
     constructor(props)
     {   
@@ -26,7 +29,7 @@ class ElectiveSubjectExcel extends Component{
     updateState=(excelRows)=>{
         for(let i of excelRows)
         {
-            if(!parseInt(i.courseId))
+            if(!parseInt(i.courseId)&&parseInt(i.courseId)!=0)
             {
                 console.log(parseInt(i.courseId));
                 this.setState({
@@ -34,28 +37,28 @@ class ElectiveSubjectExcel extends Component{
                     message:"courseId should be a Integer"
                 });
             }
-            if(!parseInt(i.semester))
+            if(!parseInt(i.semester)&&parseInt(i.semester)!=0)
             {
                 this.setState({
                     display:false,
                     message:"semester should be a Integer"
                 });
             }
-            if(!parseInt(i.lab))
+            if(!parseInt(i.lab)&&parseInt(i.lab)!=0)
             {
                 this.setState({
                     display:false,
                     message:"lab should be a Integer"
                 });
             }
-            if(!parseInt(i.credit))
+            if(!parseInt(i.credit)&&parseInt(i.credit)!=0)
             {
                 this.setState({
                     display:false,
                     message:"credit should be a Integer"
                 });
             }
-            if(!parseInt(i.isElective))
+            if(!parseInt(i.isElective)&&parseInt(i.isElective)!=0)
             {
                 this.setState({
                     display:false,
@@ -75,8 +78,12 @@ class ElectiveSubjectExcel extends Component{
             var Elective=this.state.subjectInfo.filter(e=>{
                 return e.isElective==1;
             })
-            console.log("elective subjects are ",Elective);
-            fetch("https://bpitconnect.herokuapp.com//subjects",{
+            let electivePromises=[];
+            let nonElectivePromises=[];
+            this.nonElective.map(element=>{
+                Axios.post(BackendConfig.baseUrl+"/subjects",)
+            })
+            fetch(BackendConfig.baseUrl+"/subjects",{
                 method: 'POST',
                 mode: 'cors', 
                 cache: 'no-cache', 
@@ -118,7 +125,7 @@ class ElectiveSubjectExcel extends Component{
         console.log(arr);
     }
     uploadElectiveData=()=>{
-        fetch("https://bpitconnect.herokuapp.com/electivesubjects",{
+        fetch(BackendConfig.baseUrl+"/electivesubjects",{
           
                 method: 'POST',
                 mode: 'cors', 

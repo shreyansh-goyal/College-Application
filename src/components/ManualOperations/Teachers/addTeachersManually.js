@@ -5,6 +5,7 @@ import {stateData} from './ADDTEACHERMANUALDATA';
 import {dateData} from "./ADDTEACHERMANUALDATA";
 import {GeneralButton} from "../../FormElements/GeneralButton";
 import axios from "axios";
+import backField from "../../../config/backendConnectivity";
 
 class AddTeachers extends Component {
   constructor(props) {
@@ -17,15 +18,16 @@ class AddTeachers extends Component {
     this.setState({ [name]: e.target.value });
   }
   submitDetails = () => {
-    console.log("hello I am shreyansh goyal");
+    console.log(this.state);
     axios
-      .post(`http://18.190.25.34:1337/teachers`, this.state)
+      .post(`${backField.baseUrl}/teachers`, this.state)
       .then(data => {
         console.log("post request is successful");
         alert("Teacher is added successfully");
       })
       .catch(err => {
         console.log("this error is occured", err);
+        alert("there is some error over here ,read the logs");
       });
   };
   render() {

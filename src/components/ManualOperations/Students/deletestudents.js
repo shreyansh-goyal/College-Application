@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import {RedditTextField} from "../../FormElements/GeneralInput.js";
 import axios from "axios";
-import {inputArrayField} from "./DELETESTUDENTMANUALDATA.js"
+import {inputArrayField} from "./DELETESTUDENTMANUALDATA.js";
+import backField from "../../../config/backendConnectivity";
 class DeleteStudents extends Component {
   constructor(props)
   {
     super(props);
     this.state={
-      studentId:''
+      studentId:'',
+      sId:''
     }
   }
   onChange(e,name) {
@@ -15,16 +17,31 @@ class DeleteStudents extends Component {
   }
 
   deleteStudent = () => {
-    axios.delete(
-            "http://18.190.25.34:1337/students/" +this.state.studentId
+    axios.get(backField.baseUrl+"/students?enrollmentNo="+this.state.studentId)
+    .then(data=>{
+      if(data.data.length>0)
+      {
+        console.log(data.data);
+          this.setState({sid:data.data[0].id})
+          axios.delete(
+            backField.baseUrl+"/students/" +this.state.sid
           )
           .then(data => {
+            console.log("data after fetching the enrollment number",data)
             alert("the given entry is deleted");
           })
           .catch(err => {
+            alert("Some error occured",err);
             console.log("some error is occured", err);
           });
-  };
+      }
+      else 
+      {
+        alert("No such entry is present");
+      }
+    });
+  }
+
   render() {
     return (
       <div>
@@ -33,7 +50,7 @@ class DeleteStudents extends Component {
             return (
               <RedditTextField
               onChange={(e)=>{this.onChange(e,deleteField.changeField)}}
-              label={deleteField.name}
+              label="Enrollment Number"
               defaultValue=""
               value={this.state.studentId}
               variant="filled"

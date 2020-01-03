@@ -3,7 +3,8 @@ import axios from "axios";
 import {RedditTextField} from "../../FormElements/GeneralInput";
 import {inputArrayFields} from "./ADDSTUDENTMANUALDATA";
 import {selectArrayFields} from "./ADDSTUDENTMANUALDATA";
-import {dateArrayField} from "./ADDSTUDENTMANUALDATA"
+import {dateArrayField} from "./ADDSTUDENTMANUALDATA";
+import backendDetails from "../../../config/backendConnectivity";
 
 class AddStudents extends Component {
   constructor(props) {
@@ -50,12 +51,12 @@ class AddStudents extends Component {
     this.setState({ [name]: e.target.value });
   }
   submitDetails = () => {
-    console.log(this.state);
-    axios.post("http://18.190.25.34:1337/students", {
+    console.log(backendDetails.baseUrl+"/students");
+    axios.post(backendDetails.baseUrl+"/students", {
       ...this.state
       })
       .then(data => {
-        console.log("data posted successfully");
+            alert("data uploaded successfully");
       })
       .catch(err => {
         console.log(this.state);

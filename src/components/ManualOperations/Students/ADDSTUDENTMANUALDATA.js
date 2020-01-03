@@ -8,10 +8,8 @@ export const inputArrayFields=[
     {name:"Father's Phone Number",changeFields:"fatherPhoneNo"},
     {name:"Father's Email Id",changeFields:"fatherEmailId"},
     {name:"Mother's Name",changeFields:"motherName"},
-    {name:"Gender",changeFields:"gender"},
     {name:"Aggregate",changeFields:"aggregate"},
     {name:"Active Backlogs",changeFields:"activeBacklogs"},
-    {name:"Placed",changeFields:"placed"},
     {name:"Company Name",changeFields:"companyName"},
     {name:"10th Percentage",changeFields:"tenPercentage"},
     {name:"12th Percentage",changeFields:"twelfthPercentage"},
@@ -19,16 +17,17 @@ export const inputArrayFields=[
     {name:"Gap",changeFields:"gap"},
     {name:"Entrance Rank",changeFields:"enteranceRank"},
     {name:"Resume Url",changeFields:"resumeUrl"},
-    {name:"Blocked From Drive",changeFields:"blockedFromDrive"},
     {name:"Library ID",changeFields:"libraryId"},
     {name:"Library Fine",changeFields:"libraryFine"},
+    {name:"Drop Reason",changeFields:"dropReason"},
+    {name:"Course Id",changeFields:"courseId"}
 ]
 export const selectArrayFields=[
     {
         name:"Branch",options:["CSE","IT","BBA","MBA","ECE","EEE"],changeFields:"branch"
     },
     {
-        name:"Year",options:["1st","2nd","3rd","4th"],changeFields:"year"
+        name:"Year",options:["1","2","3","4"],changeFields:"year"
     },
     {
         name:"Group",options:["G1","G2"],changeFields:"group"
@@ -38,8 +37,19 @@ export const selectArrayFields=[
     },
     {
         name:"Section",changeFields:"section",options:["A","B"]
+    },
+    {
+        name:"Is Dropped",changeFields:"isDropped",options:["0","1"]
+    },
+    {
+        name:"Gender",changeFields:"gender",options:["male","female"]
+    },
+    {
+        name:"Blocked From Drive",changeFields:"blockedFromDrive",options:["0","1"]
+    },
+    {
+        name:"Placed",changeFields:"placed",options:["0","1"]
     }
-
 ]
 export const dateArrayField=[
     {name:"Date Of Birth",changeFields:"dob"}

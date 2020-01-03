@@ -22,6 +22,7 @@ export const inputArrayFields=[
     {name:"Blocked From Drive",changeFields:"blockedFromDrive"},
     {name:"Library ID",changeFields:"libraryId"},
     {name:"Library Fine",changeFields:"libraryFine"},
+    {name:"Course Id",changeFields:"courseId"}
 ]
 export const selectArrayFields=[
     {
@@ -34,7 +35,7 @@ export const selectArrayFields=[
         name:"Group",options:["G1","G2"],changeFields:"group"
     },
     {
-        name:"Semester",options:["1","2","3","4","5","6","7","8"]
+        name:"Semester",changeFields:"semester",options:["1","2","3","4","5","6","7","8"]
     },
     {
         name:"Section",changeFields:"section",options:["A","B"]
@@ -72,5 +73,6 @@ export const naturalState={
     branch:"",
     year:"",
     group:"",
-    semester:""
+    semester:"",
+    courseId:""
 }

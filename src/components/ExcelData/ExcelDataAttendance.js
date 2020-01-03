@@ -52,19 +52,20 @@ export default class ExcelComponent extends Component {
         })
         console.log(this.state);
       }
-      if(this.props.work=="uploadElectiveSubjects")
+      else if(this.props.work=="uploadElectiveSubjects")
       {
         this.setState({
           electiveSubjectsList:excelRows
         })
         this.props.sendElectiveSubjectList(this.state.electiveSubjectsList);
       }
-      if(this.props.work=="gatherStudents")
+      else if(this.props.work=="gatherStudents")
       {
         console.log(this.props);
         this.props.linkData(this.props.subjectID,excelRows);
       }
       else{
+        console.log("This is the work"+this.props.work);
         this.props.sendData(excelRows)
       }
     };

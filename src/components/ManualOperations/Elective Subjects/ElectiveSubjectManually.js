@@ -3,6 +3,8 @@ import {inputArrayField} from "./ELECTIVESUBJECTSMANUALDATA";
 import {RedditTextField} from '../../FormElements/GeneralInput';
 import {multiOptionsField} from "./ELECTIVESUBJECTSMANUALDATA";
 import {GeneralButton} from "../../FormElements/GeneralButton";
+import backendConfig from "../../../config/backendConnectivity";
+
 class electiveManual extends Component{
 
     constructor(props)
@@ -24,12 +26,11 @@ class electiveManual extends Component{
         }
     }
     onChange(e,name) {
-        console.log(e);
         this.setState({ [name]: e.target.value });
     }
     uploadData=()=>{
         console.log(this.state);
-        fetch("http://18.190.25.34:1337/subjects",{
+        fetch(backendConfig.baseUrl+"/subjects",{
                 method: 'POST',
                 mode: 'cors', 
                 cache: 'no-cache', 
@@ -150,7 +151,7 @@ class electiveManual extends Component{
                       })
                 }
                 <div onClick={this.uploadData} style={{margin:"10px"}}>
-                    <GeneralButton text="Upload&nbsp;&nbsp;Elective&nbsp;&nbsp;Subjects" icon="cloud_upload" width="15vw"/>
+                    <GeneralButton text="Upload&nbsp;&nbsp;Subjects" icon="cloud_upload" width="15vw"/>
                 </div>
 
                 {/* <AppBar  position="static" color="primary">
