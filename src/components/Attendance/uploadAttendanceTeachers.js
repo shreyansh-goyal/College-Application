@@ -15,7 +15,6 @@ import axios from "axios";
 class uploadAttendanceByTeachers extends Component{
     constructor(props)
     {
-        console.log("hello I am in the component")
         super(props);
         this.state={
             subjectData:[],
@@ -28,17 +27,18 @@ class uploadAttendanceByTeachers extends Component{
 
     fetchData=()=>
     {
-        fetch(BackendConfig.baseUrl+"/teacherbatches?teacherId=3").then(data=>{
-            data.json().then((data=>{
-                console.log("first fetch data",data);
-                this.setState({
-                    subjectMetadata:[
-                        ...data
-                    ]
-
-                })
-                this.anotherFetch()
-            }))
+        let teacherId=localStorage.getItem("id");
+        axios.get(`${BackendConfig.baseUrl}/teachers?id=${teacherId}`).then(data=>{
+            console.log(data);
+            axios.get(BackendConfig.baseUrl+"/teacherbatches?teacherId="+data.data[0].teacherId).then(data=>{
+                    this.setState({
+                        subjectMetadata:[
+                            ...data.data
+                        ]
+    
+                    })
+                    this.anotherFetch();
+            })    
         })
     }
     getDate=()=>{
@@ -79,14 +79,12 @@ class uploadAttendanceByTeachers extends Component{
     }
     anotherFetch=()=>{
         this.state.subjectMetadata.forEach(e=>{
-            fetch(BackendConfig.baseUrl+"/subjects?subjectId="+e.subjectId).then(data=>{
-                data.json().then(data=>{
+            axios.get(BackendConfig.baseUrl+"/subjects?subjectId="+e.subjectId).then(data=>{
                     var arr=[];
-                    arr.push({name:data[0].subjectName,courseId:e.courseId,elective:data[0].isElective,subjectId:data[0].subjectId})
+                    arr.push({name:data.data[0].subjectName,courseId:e.courseId,elective:data.data[0].isElective,subjectId:data.data[0].subjectId})
                     this.setState((state,props)=>({
                         subjectData:[...state.subjectData,...arr]
                     }))
-                })
             })
         })
     }
@@ -279,7 +277,7 @@ class uploadAttendanceByTeachers extends Component{
     render()
     {
         return(
-        <div>
+        <div style={{height:"99vh",overflowY:"scroll"}}>
         <AppBar position="static" color="primary" style={{marginBottom:"10px"}}>
             <Toolbar color="primary">
                 <p style={{fontSize:"30px",width:"100%",fontWeight:"500",display:"block",textAlign:"center"}}> 
@@ -290,7 +288,7 @@ class uploadAttendanceByTeachers extends Component{
         {
             this.state.displayAttendance?(
                 <div>
-                <div style={{overflowY:"scroll",height:"40vw"}}>
+                <div style={{overflowY:"scroll",height:"70vh"}}>
                 <Paper >
                 <Table >
                   <TableHead>

@@ -5,6 +5,7 @@ import {GeneralButton} from "../../FormElements/GeneralButton";
 import {inputArrayField} from  "./UPDATETEACHERMANUALDATA";
 import {stateData} from "./UPDATETEACHERMANUALDATA";
 import backField from "../../../config/backendConnectivity";
+import "../Manual.css";
 class AddTeachers extends Component {
   constructor(props)
   {
@@ -62,7 +63,7 @@ class AddTeachers extends Component {
   };
   render() {
     return (
-      <div>
+      <div className="pageDimensions">
         <RedditTextField
         onChange={(e)=>{this.onChange(e,'teacherId')}}
         label='Teacher Id'
@@ -72,7 +73,7 @@ class AddTeachers extends Component {
         id="reddit-input"
         />        
         <div onClick={this.findTeacher} style={{margin:'10px auto'}} >
-        <GeneralButton text="Find&nbsp;Teacher"  icon="cloud_upload" width="10vw"/>
+        <GeneralButton text="Find&nbsp;Teacher"  icon="cloud_upload" />
         </div>
         <hr />
         {
@@ -204,10 +205,11 @@ class AddTeachers extends Component {
             class="form-control"
           />
         </div> */}
-        <div class="form-group input-block">
-          <button className="btn btn-info" onClick={this.updateTeacherDetails}>
-            Submit Teacher Details
-          </button>
+        <div class="form-group input-block" >
+          <div style={{margin:"10px auto"}}>
+          <GeneralButton  text="Upload&nbsp;Teacher"  icon="cloud_upload" onClick={this.updateTeacherDetails}>
+          </GeneralButton>
+          </div>
         </div>
       </div>
     );

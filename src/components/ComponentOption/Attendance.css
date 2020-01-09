@@ -1,0 +1,30 @@
+@media only screen and (max-width: 600px) {
+    .style1{
+        margin-top: 40%;
+        }
+        .style2{
+        margin-top:60%
+        }
+        .style3{
+            display:block;
+            font-size:60px;
+            color:black;
+        }   
+        .extraStyle{
+            margin-bottom: 90px;
+        }    
+}
+@media only screen and (min-width: 601px) {
+    .style1{
+        margin-top: 100px;
+        }
+        .style2{
+        margin-top:20%
+        }
+        .style3{
+            display:block;
+            font-size:90px;
+            color:black;
+        }
+        
+}

@@ -1,5 +1,8 @@
 import React,{Component} from 'react'
 import {Link} from "react-router-dom";
+import "./Attendance.css";
+import Button from '@material-ui/core/Button';
+
 class Attendence extends Component
 {
     
@@ -139,25 +142,25 @@ class Attendence extends Component
                         <div className="choiceSelection">
                                 {this.state.excel?
                                 (this.state.manual?
-                                <div data-test="excel-section" style={{marginTop:"100px"}}>
-                                    <i data-test="excel-icon" className="material-icons" style={{display:"block",fontSize:"90px",color:"black"}}>folder</i>
-                                    <Link to={ExcelRoute}><button data-test="excel-button" className="btn btn-primary">{this.state.excel}</button></Link>
+                                <div data-test="excel-section" className="style1 extraStyle">
+                                    <i data-test="excel-icon" className="material-icons style3">folder</i>
+                                    <Link to={ExcelRoute}><Button data-test="excel-button" className="btn btn-primary">{this.state.excel}</Button></Link>
                                 </div>
                                 :
-                                <div data-test="excel-section" style={{marginTop:"20%"}}>
-                                <i data-test="excel-icon" className="material-icons" style={{display:"block",fontSize:"90px",color:"black"}}>folder</i>
-                                    <Link to={ExcelRoute}><button data-test="excel-button" className="btn btn-primary">{this.state.excel}</button></Link>
+                                <div data-test="excel-section" className="style2">
+                                <i data-test="excel-icon"  className="material-icons style3">folder</i>
+                                    <Link to={ExcelRoute}><Button>{this.state.excel}</Button></Link>
                                 </div>
                                 ):""
                                 }
                                 {this.state.manual?(this.state.excel?
                                 <div data-test="manual-section" >
-                                <i data-test="manual-icon" className="material-icons" style={{display:"block",fontSize:"90px",color:"black"}}>school</i>
-                                    <Link to={ManualRoute}><button data-test="manual-button" className="btn btn-primary">{this.state.manual}</button></Link>
+                                <i data-test="manual-icon" className="material-icons style3" >school</i>
+                                    <Link to={ManualRoute}><Button data-test="manual-button" className="btn btn-primary">{this.state.manual}</Button></Link>
                                 </div>:
-                                <div data-test="manual-section" style={{marginTop:"20%"}}>
-                                <i data-test="manual-icon" className="material-icons" style={{display:"block",fontSize:"90px",color:"black"}}>school</i>
-                                    <Link to={ManualRoute}><button data-test="manual-button" className="btn btn-primary">{this.state.manual}</button></Link>
+                                <div data-test="manual-section" className="style2">
+                                <i data-test="manual-icon" className="material-icons style3">school</i>
+                                    <Link to={ManualRoute}><Button data-test="manual-button" className="btn btn-primary">{this.state.manual}</Button></Link>
                                 </div>):""                                
                                 }
 

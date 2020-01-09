@@ -1,7 +1,64 @@
-.main2{
-  margin-top:30px;
-  overflow:hidden;
+@media only screen and (min-width: 601px) {
+    .sidenav{
+    background-color:black;
+    height:100vh;
+    max-height: 52vw;
+    overflow-y: scroll;
+    }
+    .sidenav a{
+      padding: 30px 0 0 0;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      height:50px;
+      display: block;
+      outline:none;
+    }
+    .sidenav a:hover{
+      padding: 30px 0 0 0;
+      text-decoration: none;
+      font-size: 25px;
+      color: white;
+      height:50px;
+      display: block;
+      outline:none;
+    
+    }  
+    .main2{
+      margin-top:0px;
+      overflow:hidden;
+    }  
 }
+@media only screen and (max-width: 600px) {
+  .sidenav{
+    background-color:black;
+    height:100vh;
+    overflow-y: scroll;
+    }
+    .sidenav a{
+      padding: 30px 0 0 0;
+      text-decoration: none;
+      font-size: 14px;
+      color: #818181;
+      height:50px;
+      display: block;
+      outline:none;
+    }
+    .sidenav a:hover{
+      padding: 30px 0 0 0;
+      text-decoration: none;
+      font-size: 14px;
+      color: white;
+      height:50px;
+      display: block;
+      outline:none;
+    }  
+    .main2{
+      margin-top:30px;
+      overflow:hidden;
+    }
+}
+
 .App {
   text-align: center;
 }
@@ -38,31 +95,6 @@
 .main-area{
   display:grid;
   grid-template-columns: 28vw 71.3vw ;
-}
-.sidenav{
-background-color:black;
-height:52vw;
-max-height: 52vw;
-overflow-y: scroll;
-}
-.sidenav a{
-  padding: 30px 0 0 0;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  height:50px;
-  display: block;
-  outline:none;
-}
-.sidenav a:hover{
-  padding: 30px 0 0 0;
-  text-decoration: none;
-  font-size: 25px;
-  color: white;
-  height:50px;
-  display: block;
-  outline:none;
-
 }
 .someHeader{
   display:flex;
@@ -131,9 +163,4 @@ align-self: center;
 }
 .someclass{
   justify-content:"flex-end";
-}
-.loginBackground{
-  height:570px;
-  background-image:url("http://www.bpitindia.com/images/slide-2.jpg");
-  padding:10% 0;
 }

@@ -47,7 +47,7 @@ class deleteSubject extends Component {
           id="reddit-input"
           />
           <div style={{margin:"10px auto"}} onClick={this.deleteSubject}>
-              <GeneralButton text="Delete&nbsp;&nbsp;Subject" icon="delete" width="10vw"/>
+              <GeneralButton text="Delete&nbsp;&nbsp;Subject" icon="delete"/>
           </div>
       </div>
     );

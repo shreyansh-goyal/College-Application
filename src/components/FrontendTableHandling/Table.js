@@ -87,7 +87,7 @@ class MainTable extends Component{
                     <ExcelComponent work="StudentData" sendData={this.readExcelRows}/>
                     {this.state.validated?(
                         <div>
-                            <Paper style={{overflowY:"scroll",overflowX:"scroll",maxHeight:"540px"}}>
+                            <Paper style={{overflowY:"scroll",overflowX:"scroll",maxHeight:"60vh"}}>
                             <Table >
                                 <TableHead>
                                 <TableRow >
@@ -122,8 +122,8 @@ class MainTable extends Component{
                             </TableBody>
                             </Table>
                         </Paper>
-                        <div  onClick={this.postData} style={{margin:"20px auto"}}>
-                            <GeneralButton text="Upload&nbsp;&nbsp;Data" icon="cloud_upload" width="10vw"/>
+                        <div  style={{margin:"20px auto"}}>
+                            <span onClick={this.postData}><GeneralButton   text="Upload&nbsp;&nbsp;Data" icon="cloud_upload"/></span>
                         </div>
                     </div>
                     ):(

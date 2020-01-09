@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import BackendConfig from "../config/backendConnectivity";
 import Axios from 'axios';
 import backendConnectivity from '../config/backendConnectivity';
+import {GeneralButton} from "./FormElements/GeneralButton";
 class ElectiveSubjectExcel extends Component{
     constructor(props)
     {   
@@ -282,9 +283,8 @@ class ElectiveSubjectExcel extends Component{
                                 </TableBody>
                             </Table>
                             </Paper>
-                            <Button variant="contained" color="primary" onClick={this.uploadElectiveData} style={{fontWeight:"800",marginTop:"10px"}} >
-                                Upload To The DataBase
-                            </Button>
+                            <GeneralButton text="Upload Elective Subjects" icon="upload_cloud" onClick={this.uploadElectiveData}  >
+                            </GeneralButton>
                         </div>
                         )
                     }

@@ -1,0 +1,57 @@
+@media only screen and (min-width: 601px) {
+    .paper
+    {
+        width:100%;
+        display:flex;
+        flex-wrap:wrap;    
+    }
+    .analyticsLogo{
+        margin:auto 30px;
+        font-weight:800;
+        font-size:20px;
+        color:#f50057;
+        border:2px solid #f50057;
+        padding:10px;
+        border-radius:10px;
+    }
+    .sms{
+        margin:0 6px;
+    }
+    .modal{
+        width:60%
+    }
+    .inputBlocks{
+        width:100%
+    }
+}
+@media only screen and (max-width: 600px) {
+    .paper
+    {
+        width:100%;
+        display:flex;
+        flex-wrap:wrap;
+        overflow-y:scroll;
+        overflow-x:scroll;
+        max-height:540px;
+        max-width:70vw;    
+    }
+    .analyticsLogo{  
+        width:100%;     
+        margin:10px 30px;
+        font-weight:800;
+        font-size:20px;
+        color:#f50057;
+        border:2px solid #f50057;
+        padding:10px;
+        border-radius:10px;
+    }
+    .limit{
+        margin-left:18%;
+    }
+    .modal{
+        width:90%;
+    }
+    .inputBlocks{
+        width:90%;
+    }
+}

@@ -6,7 +6,11 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import axios from "axios";
 import {LoginContext} from "../../App"
-
+import "./LoginPage.css";
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 export default class LoginPage extends Component{
     constructor(props)
     {
@@ -15,47 +19,89 @@ export default class LoginPage extends Component{
         loginId:"",
         password:"",
         email:"",
-        blocked:false
+        blocked:false,
+        role:null
       }
       
     }
-    login=(context)=>{
-       axios.post("http://localhost:1337/auth/local",{
-        identifier:this.state.email,
-        password:this.state.password,
-      }).then(data=>{
-        localStorage.setItem('token',data.data.jwt);
-        console.log(data.data.jwt);
-        localStorage.setItem('id',data.data.username);
-        if(data.data.student)
-        { 
-          context.changeState("student",data.data.username)
-        }
-        else if(data.data.teacher)
+    updateRole=(e)=>{
+      this.setState(
         {
-          context.changeState("teacher",data.data.username);
+          role:e.target.value
         }
-        else{
-          context.changeState("admin",data.data.username);
-        }
-        //this.props.changeView();
-      })
-      .catch(err=>{
-        console.log(this.state);
-        console.log(err);
-      })
-
+      )
     }
+    login=(context)=>{
+      if(this.state.role)
+      {
+          switch(this.state.role)
+          {
+              case "admin":{
+                axios.post("http://localhost:1337/auth/local/admin",{
+                  identifier:this.state.email,
+                  password:this.state.password,
+                }).then(data=>{
+                  localStorage.setItem('token',data.data.jwt);
+                  localStorage.setItem('id',data.data.username);
+                  context.changeState("admin",data.data.username)
+                  this.props.changeView("admin","/Add Students");
+                })
+                .catch(err=>{
+                  console.log(this.state);
+                  console.log(err);
+                  alert("Wrong Credentials");
+                })  
+                break;
+              }
+     
+            case "teacher":{
+              axios.post("http://localhost:1337/auth/local/teacher",{
+                identifier:this.state.email,
+                password:this.state.password,
+              }).then(data=>{
+                localStorage.setItem('token',data.data.jwt);
+                localStorage.setItem('id',data.data.user.teacher);
+                context.changeState("teacher",data.data.user.teacher);
+                console.log("teacher id",data);
+                this.props.changeView("teacher","/attendance/upload/Upload Attendence/teachers");
+              })
+              .catch(err=>{
+                console.log(this.state);
+                console.log(err);
+                alert("Wrong Credentials");
+              })  
+              break;
+            } 
+            case "student":{
+              axios.post("http://localhost:1337/auth/local",{
+                identifier:this.state.email,
+                password:this.state.password,
+              }).then(data=>{
+                localStorage.setItem('token',data.data.jwt);
+                localStorage.setItem('id',data.data.user.username);
+                context.changeState("student",data.data.username);
+                this.props.changeView("student","/attendance/upload/Analyse Attendance");
+              })
+              .catch(err=>{
+                console.log(this.state);
+                console.log(err);
+                alert("Wrong Credentials");
+              })  
+              break;
+            } 
+          }
+    }
+  }
     render()
     {
         return(
-            <div className="loginPage">
-            <div data-test="header" style={{height:"100px",display:"flex",justifyContent:"space-between",alignItems:"flex-end"}}>
+            <div >
+            <div data-test="header" className="loginHeader">
               <div style={{display:"flex"}}>
-              <img data-test="logo" style={{height:"35px",margin:"20px"}} src="http://www.bpitindia.com/images/logo.png"></img>
-              <h3  data-test="heading" style={{color:"#44469e",fontWeight:400,fontSize:"30px"}}>BHAGWAN PARSHURAM INSTITUTE OF TECHNOLOGY</h3>
+              <img data-test="logo" className="logoSize" src="http://www.bpitindia.com/images/logo.png"></img>
+              <h3  data-test="heading" className="heading">BHAGWAN PARSHURAM INSTITUTE OF TECHNOLOGY</h3>
               </div>
-              <div data-test="side-logo" style={{display:"flex",width:"25vw",alignItems:"flex-end"}}>
+              <div data-test="side-logo" className="sideLogo">
               <img style={{height:"100px"}} src="http://www.bpitindia.com/images/brahim-smaaj.png"></img>
               <p style={{fontSize:"20px",color:"#ee1c26"}} >BHARTIYA BRAHMIN CHARITABLE TRUST</p>  
               </div>
@@ -63,10 +109,10 @@ export default class LoginPage extends Component{
             <div className="loginBackground" data-test="login-background">
             {
               this.props.signup?(
-                <Card data-test="signup-card" style={{width:"40%",margin:"0 auto"}}>
+                <Card data-test="signup-card" className="cardSize">
                 <CardContent>
                   <p data-test="signup-heading" style={{textAlign:"center",fontWeight:"500",fontSize:"20px"}}>Signup Page</p>
-                  <TextField 
+                  <TextField
                     data-test="signup-username"
                     style={{width:"100%"}}
                     id="filled-name"
@@ -93,7 +139,7 @@ export default class LoginPage extends Component{
                 </CardActions>
               </Card>
                 ):(
-                <Card style={{width:"40%",margin:"0 auto"}} data-test="login-card">
+                <Card className="cardSize" data-test="login-card">
                 <CardContent>
                   <p data-test="login-heading" style={{textAlign:"center",fontWeight:"500",fontSize:"20px"}}>Login Here</p>
                   <div  data-test="login-loginId">
@@ -118,6 +164,27 @@ export default class LoginPage extends Component{
                     onChange={(event)=>{this.setState({password:event.target.value})}}
                     type="password"
                   />
+                  <FormControl variant="filled" style={{marginTop:"10px",width:"100%"}} >
+                  <InputLabel  id="demo-simple-select-filled-label"  style={{color:"#3f51ab",fontSize:"20px",width:"100%"}}  shrink htmlFor="age-simple">User Role</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-filled-label"
+                        id="demo-simple-select-filled"
+                        style={{width:"100%"}}
+                        value={this.state.role}
+                        inputProps={{
+                          name: 'semester',
+                          id: 'age-simple',
+                          style:{
+                            color:"3f51ab",
+                            width:"100%"
+                          }
+                        }}
+                        onChange={this.updateRole}>
+                        <MenuItem value="admin">Admin</MenuItem>
+                        <MenuItem value="teacher">Teacher</MenuItem>
+                        <MenuItem value="student">Student</MenuItem>
+                      </Select>
+                  </FormControl>
                 </CardContent>
                 <CardActions>
                 <LoginContext.Consumer>

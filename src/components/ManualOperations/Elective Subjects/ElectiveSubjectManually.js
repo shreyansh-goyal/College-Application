@@ -151,7 +151,7 @@ class electiveManual extends Component{
                       })
                 }
                 <div onClick={this.uploadData} style={{margin:"10px"}}>
-                    <GeneralButton text="Upload&nbsp;&nbsp;Subjects" icon="cloud_upload" width="15vw"/>
+                    <GeneralButton text="Upload&nbsp;&nbsp;Subjects" icon="cloud_upload" />
                 </div>
 
                 {/* <AppBar  position="static" color="primary">

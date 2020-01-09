@@ -28,7 +28,8 @@ export default class Example extends PureComponent {
     this.fetchAttendance();
   }
   fetchAttendance=()=>{
-      axios.get(BackendConfig.baseUrl+"/attendance?enrollment_no=5")
+      let enrollmentNo= localStorage.getItem("id");
+      axios.get(BackendConfig.baseUrl+"/attendance?enrollment_no="+enrollmentNo)
       .then(data=>{
               let arr=[];
               let promises=[];
@@ -90,7 +91,7 @@ export default class Example extends PureComponent {
   }
   render() {
     return (
-    <div>
+    <div style={{height:"89vh",overflowY:"scroll"}}>
         <AppBar position="static" color="primary" style={{marginBottom:"10px"}}>
             <Toolbar color="primary">
                 <p style={{fontSize:"30px",width:"100%",fontWeight:"500",display:"block",textAlign:"center"}}> 
@@ -104,14 +105,12 @@ export default class Example extends PureComponent {
             <Card style={{width:"21vw",margin:"20px",height:"18vw",display:"flex"}}>
             <CardContent>
             <PieChart width={220} height={150}>
-                                <Pie dataKey="value" startAngle={180} endAngle={0} data={e[0]} cx={120} cy={120} outerRadius={80}  label />
+                <Pie dataKey="value" startAngle={180} endAngle={0} data={e[0]} cx={120} cy={120} outerRadius={80}  label />
             </PieChart>
-            <Typography color="textSecondary" gutterBottom>
             <div>
-              <p>Subject : {titleCase(e[1])}</p>
-              <p>Attendance Percentage : {((e[0][0].value/(e[0][0].value+e[0][1].value))*100).toFixed(2)}% </p>
+              <p style={{fontSize:"15px"}}>Subject : {titleCase(e[1])}</p>
+              <p style={{fontSize:"15px"}}>Attendance Percentage : {((e[0][0].value/(e[0][0].value+e[0][1].value))*100).toFixed(2)}% </p>
             </div>
-            </Typography>
             </CardContent>
           </Card>
           )

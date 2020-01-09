@@ -46,8 +46,8 @@ class App extends Component {
           { label: "Anaylze Attendance", to: "/attendance/upload/Analyse Attendance" }
         ]
       },
-      role: "admin",
-      loggedIn: true,
+      role: "",
+      loggedIn: false,
       signup: false,
       validationAddStudent: ["libraryFine", "rollNo", "enrollmentNo", "courseId", "year", "isDropped", "aggregate", "activeBacklogs", "placed", "tenPercentage", "twelfthPercentage"],
       fieldAddStudent: ["libraryFine", "rollNo", "enrollmentNo", "courseId", "year", "section", "group", "studentName", "fatherName", "motherName", "gender", "dob", "phoneNo", "fatherPhoneNo", "emailId", "fatherEmailId", "isDropped", "dropReason", "aggregate", "activeBacklogs", "placed", "companyName", "tenPercentage", "twelfthPercentage", "diploma", "gap", "enteranceRank", "resumeUrl", "blockedFromDrive", "libraryId", "semester", "branch"],
@@ -71,6 +71,21 @@ class App extends Component {
       { path: "/manualEntry/Add Subject", component: AddSubject }, { path: "/manualEntry/Delete Subject", component: deleteSubject }]
     }
   }
+  // componentDidMount()
+  // {
+  //   if(localStorage.getItem("role")=="teacher")
+  //   {
+
+  //   }
+  //   else if(localStorage.getItem("role")=="adm")
+  //   {
+
+  //   }
+  //   else if(localStorage.getItem("role")=="teacher")
+  //   {
+
+  //   }
+  // }
   render() {
     return (
       <MyProvider>
@@ -144,7 +159,7 @@ class App extends Component {
                     <Route
                       exact
                       path="/excelEntry/Add Students"
-                      component={() => <MainTable api="/students" method="POST" message="Add Students" validation={this.state.validationAddStudent} fields={this.state.fieldAddStudent} />}
+                      component={() => <MainTable  api="/students" method="POST" message="Add Students" validation={this.state.validationAddStudent} fields={this.state.fieldAddStudent} />}
                     />
                     <Route
                       exact
@@ -190,7 +205,7 @@ class App extends Component {
                 </div>
               </div>
             ) : (
-                <LoginPage data-test="login-page" changeView={() => { this.setState({ loggedIn: true }) }} signup={this.signup} />
+                <LoginPage data-test="login-page"  changeView={(role,url) => { this.setState({ loggedIn: true,role })}} signup={this.signup} />
               )
           }
         </div>

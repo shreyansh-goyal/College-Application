@@ -15,7 +15,7 @@ return(
     style={{fontSize:"10px",fontWeight:400}}
     >
     <div style={{display:"flex",justifyContent: "space-between",width:props.width,padding:0}}>
-    <div>{props.text}</div><div><Icon style={{fontSize:"20px"}}>{props.icon}</Icon></div>
+    <div>{props.text}</div><div><Icon style={{fontSize:"20px",marginLeft:"10px"}}>{props.icon}</Icon></div>
     </div>
     </Button>
 )

@@ -32,7 +32,7 @@ class AddTeachers extends Component {
   };
   render() {
     return(
-      <div>
+      <div className="pageDimensions"> 
         {
           inputArrayField.map(textField=>{
             return(
@@ -61,7 +61,7 @@ class AddTeachers extends Component {
           })
         }
         <div style={{margin:"10px auto"}} onClick={this.submitDetails}>
-        <GeneralButton text="Add&nbsp;Teacher"  icon="cloud_upload" width="10vw"/>
+        <GeneralButton text="Add&nbsp;Teacher"  icon="cloud_upload" />
         </div>
       </div>
     )

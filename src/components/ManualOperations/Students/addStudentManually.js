@@ -5,7 +5,8 @@ import {inputArrayFields} from "./ADDSTUDENTMANUALDATA";
 import {selectArrayFields} from "./ADDSTUDENTMANUALDATA";
 import {dateArrayField} from "./ADDSTUDENTMANUALDATA";
 import backendDetails from "../../../config/backendConnectivity";
-
+import "../Manual.css"
+import {GeneralButton} from "../../FormElements/GeneralButton";
 class AddStudents extends Component {
   constructor(props) {
     super(props);
@@ -66,7 +67,7 @@ class AddStudents extends Component {
   };
   render() {
     return (
-      <div style={{overflowY:"scroll",height:"650px"}}>
+      <div className="pageDimensions">
       {
         inputArrayFields.map(textField=>{
         return (
@@ -97,7 +98,8 @@ class AddStudents extends Component {
       {
         selectArrayFields.map(selectFields=>{
           return(
-            <select style={{width:"95%",margin:"20px auto",height:"4vw"}}  data-test="branch-input" onChange={(e)=>{this.onChange(e,selectFields.changeFields)}} class="form-control">
+            <div className="form-group">
+            <select className="form-control"   data-test="branch-input" onChange={(e)=>{this.onChange(e,selectFields.changeFields)}} >
             <option>{selectFields.name}</option>
             {
             selectFields.options.map(option=>{
@@ -107,17 +109,18 @@ class AddStudents extends Component {
             })
             }
             </select>
+            </div>
           )
         })
       }
 
         <div data-test="submit-section" class="form-group input-block">
-          <button data-test="submit-button" className="btn btn-info " onClick={this.submitDetails}>
-            Submit Student
-          </button>
+          <div style={{margin:"10px auto"}}>
+          <GeneralButton text="Add Student" icon="cloud_upload" onClick={this.submitDetails}></GeneralButton>
+          </div>
         </div>
       </div>
-    );
+    )
   }
 }
 export default AddStudents;

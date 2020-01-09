@@ -7,6 +7,7 @@ import {selectArrayFields} from "./UPDATESTUDENTMANUALDATA";
 import {naturalState} from "./UPDATESTUDENTMANUALDATA";
 import {dateArrayField} from "./UPDATESTUDENTMANUALDATA";
 import backendField from "../../../config/backendConnectivity";
+import "../Manual.css"
 class AddStudents extends Component{
     state={
         studentDetails:{
@@ -82,7 +83,7 @@ class AddStudents extends Component{
                     ...naturalState
                 }
             })
-            console.log(this.state);
+            alert("data is updated successfully");
         }).catch(err=>{
             console.log("some error occured while updating the the student record",err);
         })
@@ -91,7 +92,7 @@ class AddStudents extends Component{
     render()
     {
         return(
-            <div style={{height:"52vw",overflowY:"scroll"}}>
+            <div className="pageDimensions">
                 <RedditTextField
                 onChange={(e)=>{this.onChange(e,"enrollmentNo")}}
                 label="Enrollment Number"
@@ -102,7 +103,7 @@ class AddStudents extends Component{
                 />
                 {/* BUTTON IS NOT CLICKABLE I HAD TO USE A DIV TO MAKE THE GENERAL BUTTON CLICKABLE */}
                 <div onClick={this.findStudent}>
-                <GeneralButton text="Search&nbsp;&nbsp;Student" icon="search" width="10vw"/>
+                <GeneralButton text="Search&nbsp;&nbsp;Student" icon="search" />
                 </div>
                 <hr/>
                {/* 
@@ -145,7 +146,7 @@ class AddStudents extends Component{
                 {
                         selectArrayFields.map(selectFields=>{
                         return(
-                            <select style={{width:"95%",margin:"20px auto",height:"4vw"}}  data-test="branch-input" onChange={(e)=>{this.onChange(e,selectFields.changeFields)}} class="form-control">
+                            <select   data-test="branch-input" onChange={(e)=>{this.onChange(e,selectFields.changeFields)}} class="form-control">
                             <option>{selectFields.name}</option>
                             {
                             selectFields.options.map(option=>{
@@ -159,7 +160,7 @@ class AddStudents extends Component{
                         })
                 }
                 <div onClick={this.updateStudent} style={{margin:"10px"}}>
-                    <GeneralButton text="Update&nbsp;&nbsp;Student" icon="cloud_upload" width="10vw"/>
+                    <GeneralButton text="Update&nbsp;&nbsp;Student" icon="cloud_upload" />
                 </div>
 
                 </div>

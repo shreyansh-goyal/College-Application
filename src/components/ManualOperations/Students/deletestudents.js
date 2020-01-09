@@ -3,6 +3,7 @@ import {RedditTextField} from "../../FormElements/GeneralInput.js";
 import axios from "axios";
 import {inputArrayField} from "./DELETESTUDENTMANUALDATA.js";
 import backField from "../../../config/backendConnectivity";
+import {GeneralButton} from "../../FormElements/GeneralButton";
 class DeleteStudents extends Component {
   constructor(props)
   {
@@ -59,14 +60,9 @@ class DeleteStudents extends Component {
             )
           })
         }
-        <div
-          style={{ display: "flex", justifyContent: "center" }}
-          class="form-group input-block"
-        >
-          <button data-test="delete student" className="btn btn-info" onClick={this.deleteStudent}>
-            Delete Student
-          </button>
-        </div>
+          <div style={{margin:"10px auto"}}>
+          <GeneralButton text="Delete Student" icon="delete" onClick={this.submitDetails}></GeneralButton>
+          </div>
       </div>
     );
   }
