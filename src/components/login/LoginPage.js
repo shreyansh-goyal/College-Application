@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import  {backendConnectivity} from "../../config/backendConnectivity"
 export default class LoginPage extends Component{
     constructor(props)
     {
@@ -37,7 +38,7 @@ export default class LoginPage extends Component{
           switch(this.state.role)
           {
               case "admin":{
-                axios.post("http://localhost:1337/auth/local/admin",{
+                axios.post(backendConnectivity.baseUrl+"/auth/local/admin",{
                   identifier:this.state.email,
                   password:this.state.password,
                 }).then(data=>{
@@ -55,7 +56,7 @@ export default class LoginPage extends Component{
               }
      
             case "teacher":{
-              axios.post("http://localhost:1337/auth/local/teacher",{
+              axios.post(backendConnectivity.baseUrl+"/auth/local/teacher",{
                 identifier:this.state.email,
                 password:this.state.password,
               }).then(data=>{
