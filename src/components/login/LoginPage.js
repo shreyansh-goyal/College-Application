@@ -74,7 +74,7 @@ export default class LoginPage extends Component{
               break;
             } 
             case "student":{
-              axios.post("http://localhost:1337/auth/local",{
+              axios.post(backendConnectivity.baseUrl+"/auth/local",{
                 identifier:this.state.email,
                 password:this.state.password,
               }).then(data=>{
