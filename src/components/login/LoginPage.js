@@ -74,10 +74,12 @@ export default class LoginPage extends Component{
               break;
             } 
             case "student":{
+              console.log("hello this is the data");  
               axios.post(backendConnectivity.baseUrl+"/auth/local",{
                 identifier:this.state.email,
                 password:this.state.password,
               }).then(data=>{
+                console.log(data);
                 localStorage.setItem('token',data.data.jwt);
                 localStorage.setItem('id',data.data.user.username);
                 context.changeState("student",data.data.username);
