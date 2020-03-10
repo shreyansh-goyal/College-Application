@@ -1,4 +1,4 @@
 var backendConnectivity={
-    baseUrl:"http://localhost:1337",
+    baseUrl:"https://glacial-ravine-52971.herokuapp.com:1337",
 }
 export default backendConnectivity;
