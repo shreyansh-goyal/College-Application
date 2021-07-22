@@ -30,7 +30,7 @@
     "recharts": "^1.7.1",
     "redux": "^4.0.1",
     "sinon": "^7.4.2",
-    "xlsx": "^0.14.2"
+    "xlsx": "^0.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
